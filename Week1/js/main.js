@@ -23,6 +23,7 @@ $('#addItem').on('pageinit', function(){
 	
 	//any other code needed for addItem page goes here
 
+<<<<<<< HEAD
 	//getElementById Function
 // 	var e = function(x){
 // 		var theElement = document.getElementById(x);
@@ -30,6 +31,9 @@ $('#addItem').on('pageinit', function(){
 // 	};
 
 // 	//Variable defaults
+=======
+ 	//Variable defaults
+>>>>>>> origin/gh-pages
 	 var //comicGenre = ["--Choose A Genre--", "Superhero", "Horror", "Sci-Fi", "Western", "Romance"],
 		styleValue,
 		errMsg = $('#errors');
@@ -54,6 +58,7 @@ $('#addItem').on('pageinit', function(){
 		}
 	};
 
+<<<<<<< HEAD
 // 	//Get the image for the right category
 // 	var getImage = function(catName, makeSubList){
 // 		var imageLi = document.createElement('li');
@@ -93,6 +98,47 @@ $('#addItem').on('pageinit', function(){
 // 			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
 // 		}
 // 	};
+=======
+	//Get the image for the right category
+	var getImage = function(catName, makeSubList){
+		var imageLi = document.createElement('li');
+		$(makeSubList).appendTo(imageLi);
+		var newImg = document.createElement('img');
+		var setSrc = $(newImg).attr("src", "images/" + catName + ".png");
+		$(imageLi).appendTo(newImg);
+	};
+
+	var getData = function(){
+		if(localStorage.length === 0){
+			alert("There is no data in Local Storage so default data was added.");
+			autofillData();
+		}
+		//Write Data from Local Storage to the browser
+		var makeDiv = $('#data');
+		var makeList = document.createElement('ul'); 
+		$(makeDiv).appendTo(makeList);
+		for(var i=0, j=localStorage.length; i<j; i++){
+			var makeLi = document.createElement('li');
+			var linksLi = document.createElement('li');
+			$(makeList).appendTo(makeLi);
+			var key = localStorage.key(i);
+			var value = localStorage.getItem(key);
+			//Convert the string from local storage value back to an object by using JSON.parse()
+			var obj = JSON.parse(value);
+			var makeSubList = document.createElement('ul');
+			$(makeLi).appendTo(makeSubList);
+			getImage(obj.genre[1], makeSubList);
+			for (var n in obj){
+				var makeSubLi = document.createElement('li');
+				$(makeSubList).appendTo(makeSubLi);
+				var optSubText = obj[n][0] + " " + obj[n][1];
+				makeSubLi.html = optSubText;
+				$(makeSubList).appendTo(linksLi);
+			}
+			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
+		}
+	};
+>>>>>>> origin/gh-pages
 
 	var storeData = function(key){
 		//If there is no key, this is a brand new item and we need to generate a key
@@ -122,6 +168,7 @@ $('#addItem').on('pageinit', function(){
 		alert("Comic saved to index!");
 	}; 
 
+<<<<<<< HEAD
 // 	//Make Item Links
 // 	//Create the edit and delete links for each stored item when displayed
 // 	var makeItemLinks = function(key, linksLi){
@@ -220,6 +267,103 @@ $('#addItem').on('pageinit', function(){
 	// clearLink.on("click", clearLocal);
 	var save = $('#submit');
 	save.on("click", storeData);
+=======
+	//Make Item Links
+	//Create the edit and delete links for each stored item when displayed
+	var makeItemLinks = function(key, linksLi){
+		//add edit single item link
+		var editLink = document.createElement('a');
+		editLink.href = $("#addItem");
+		editLink.key = key;
+		var editText = "Edit Comic";
+		$(editLink).on("click", editItem);
+		editLink.html = editText;
+		$(linksLi).appendTo(editLink);
+
+		//add line break for links
+		var breakTag = document.createElement('br');
+		$(linksLi).appendTo(breakTag);
+
+		//add delete single item link
+		var deleteLink = document.createElement('a');
+		$(deleteLink).attr("id", "deleteA");
+		deleteLink.href = "#";
+		deleteLink.key = key;
+		var deleteText = "Delete Comic";
+		$(deleteLink).on("click", deleteItem);
+		deleteLink.html = deleteText;
+		$(linksLi).appendTo(deleteLink);
+
+		//Creates a horizontal line/separator after each item
+		var hr = document.createElement('hr');
+		$(linksLi).appendTo(hr);
+	};
+
+	var	editItem = function (){
+		//Grab the data from our item in Local Storage
+		var value = localStorage.getItem(this.key);
+		var item = JSON.parse(value);
+
+		//populate the form fields with current Local Storage values
+		$('#comicTitle').value 	= item.comicTitle[1];
+		$('#seriesTitle').value 	= item.seriesTitle[1];
+		$('#issueNum').value 	= item.issueNum[1];
+		$('#dateReleased').value = item.dateReleased[1];
+		$('#publisher').value 	= item.publisher[1];
+		$('#rateIssue').value 	= item.rateIssue[1];
+		$('#genre').value 		= item.genre[1];
+		var radios = $('#illStyle');
+		for(var i=0; i<radios.length; i++){		
+			if(radios[i].value == "Full Color" && item.illStyle[1] == "Full Color"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Black & White" && item.illStyle[1] == "Black & White"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Combination" && item.illStyle[1] == "Combination"){
+				radios[i].setAttribute("checked", "checked");
+			}
+		}
+		$('#comments').value 	= item.comments[1];
+
+		//Remove the initial listener from the input 'save comic' button
+		//Change Submit button value to Edit button
+		$('#submit').value = "Edit Comic";
+		var editSubmit = $('#submit');
+		//Save the key value established in this function as a property of the editSubmit event
+		//so we can use that value when we save the data we edited
+	 	editSubmit.on("click", storeData);
+	 	editSubmit.key = this.key;
+	};
+
+	var	deleteItem = function (){
+		var ask = confirm("Are you sure you want to delete this comic?");
+		if(ask){
+			localStorage.removeItem(this.key);
+			alert("Comic was deleted!");
+			window.location.reload();
+		}else{
+			alert("Comic was NOT deleted!");
+		}		
+	};
+						
+	var clearLocal = function(){
+		if(localStorage.length === 0){
+			alert("There is no data to clear.");
+		}else{
+			localStorage.clear();
+			alert("All comics were deleted!");
+			window.location.reload();
+			return false;
+		}
+	};
+
+	//Set Link and Submit Click Events
+	var displayLink = $('#displayData');
+	$(displayLink).on("click", getData);
+	var clearLink = $('#clearData');
+	$(clearLink).on("click", clearLocal);
+	var save = $('#submit');
+	$(save).on("click", storeData);
+>>>>>>> origin/gh-pages
 
 });
 
