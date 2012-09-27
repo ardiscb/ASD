@@ -23,17 +23,7 @@ $('#addItem').on('pageinit', function(){
 	
 	//any other code needed for addItem page goes here
 
-<<<<<<< HEAD
-	//getElementById Function
-// 	var e = function(x){
-// 		var theElement = document.getElementById(x);
-// 		return theElement;
-// 	};
-
-// 	//Variable defaults
-=======
- 	//Variable defaults
->>>>>>> origin/gh-pages
+    //Variable defaults
 	 var //comicGenre = ["--Choose A Genre--", "Superhero", "Horror", "Sci-Fi", "Western", "Romance"],
 		styleValue,
 		errMsg = $('#errors');
@@ -58,7 +48,7 @@ $('#addItem').on('pageinit', function(){
 		}
 	};
 
-<<<<<<< HEAD
+
 // 	//Get the image for the right category
 // 	var getImage = function(catName, makeSubList){
 // 		var imageLi = document.createElement('li');
@@ -98,7 +88,7 @@ $('#addItem').on('pageinit', function(){
 // 			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
 // 		}
 // 	};
-=======
+
 	//Get the image for the right category
 	var getImage = function(catName, makeSubList){
 		var imageLi = document.createElement('li');
@@ -138,7 +128,6 @@ $('#addItem').on('pageinit', function(){
 			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
 		}
 	};
->>>>>>> origin/gh-pages
 
 	var storeData = function(key){
 		//If there is no key, this is a brand new item and we need to generate a key
@@ -168,7 +157,7 @@ $('#addItem').on('pageinit', function(){
 		alert("Comic saved to index!");
 	}; 
 
-<<<<<<< HEAD
+
 // 	//Make Item Links
 // 	//Create the edit and delete links for each stored item when displayed
 // 	var makeItemLinks = function(key, linksLi){
@@ -267,7 +256,7 @@ $('#addItem').on('pageinit', function(){
 	// clearLink.on("click", clearLocal);
 	var save = $('#submit');
 	save.on("click", storeData);
-=======
+
 	//Make Item Links
 	//Create the edit and delete links for each stored item when displayed
 	var makeItemLinks = function(key, linksLi){
@@ -363,7 +352,6 @@ $('#addItem').on('pageinit', function(){
 	$(clearLink).on("click", clearLocal);
 	var save = $('#submit');
 	$(save).on("click", storeData);
->>>>>>> origin/gh-pages
 
 });
 
