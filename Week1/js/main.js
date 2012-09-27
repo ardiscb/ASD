@@ -23,7 +23,7 @@ $('#addItem').on('pageinit', function(){
 	
 	//any other code needed for addItem page goes here
 
-    //Variable defaults
+ 	//Variable defaults
 	 var //comicGenre = ["--Choose A Genre--", "Superhero", "Horror", "Sci-Fi", "Western", "Romance"],
 		styleValue,
 		errMsg = $('#errors');
@@ -47,47 +47,6 @@ $('#addItem').on('pageinit', function(){
 			localStorage.setItem(id, JSON.stringify(json[n]));
 		}
 	};
-
-
-// 	//Get the image for the right category
-// 	var getImage = function(catName, makeSubList){
-// 		var imageLi = document.createElement('li');
-// 		makeSubList.appendChild(imageLi);
-// 		var newImg = document.createElement('img');
-// 		var setSrc = newImg.setAttribute("src", "images/" + catName + ".png");
-// 		imageLi.appendChild(newImg);
-// 	};
-
-// 	var getData = function(){
-// 		if(localStorage.length === 0){
-// 			alert("There is no data in Local Storage so default data was added.");
-// 			autofillData();
-// 		}
-// 		//Write Data from Local Storage to the browser
-// 		var makeDiv = e('data');
-// 		var makeList = document.createElement('ul');
-// 		makeDiv.appendChild(makeList);
-// 		for(var i=0, j=localStorage.length; i<j; i++){
-// 			var makeLi = document.createElement('li');
-// 			var linksLi = document.createElement('li');
-// 			makeList.appendChild(makeLi);
-// 			var key = localStorage.key(i);
-// 			var value = localStorage.getItem(key);
-// 			//Convert the string from local storage value back to an object by using JSON.parse()
-// 			var obj = JSON.parse(value);
-// 			var makeSubList = document.createElement('ul');
-// 			makeLi.appendChild(makeSubList);
-// 			getImage(obj.genre[1], makeSubList);
-// 			for (var n in obj){
-// 				var makeSubLi = document.createElement('li');
-// 				makeSubList.appendChild(makeSubLi);
-// 				var optSubText = obj[n][0] + " " + obj[n][1];
-// 				makeSubLi.innerHTML = optSubText;
-// 				makeSubList.appendChild(linksLi);
-// 			}
-// 			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
-// 		}
-// 	};
 
 	//Get the image for the right category
 	var getImage = function(catName, makeSubList){
@@ -157,67 +116,150 @@ $('#addItem').on('pageinit', function(){
 		alert("Comic saved to index!");
 	}; 
 
+	//Make Item Links
+	//Create the edit and delete links for each stored item when displayed
+	var makeItemLinks = function(key, linksLi){
+		//add edit single item link
+		var editLink = document.createElement('a');
+		editLink.href = $("#addItem");
+		editLink.key = key;
+		var editText = "Edit Comic";
+		$(editLink).on("click", editItem);
+		editLink.html = editText;
+		$(linksLi).appendTo(editLink);
 
-// 	//Make Item Links
-// 	//Create the edit and delete links for each stored item when displayed
-// 	var makeItemLinks = function(key, linksLi){
-// 		//add edit single item link
-// 		var editLink = document.createElement('a');
-// 		editLink.href = "#addItem";
-// 		editLink.key = key;
-// 		var editText = "Edit Comic";
-// 		editLink.addEventListener("click", editItem);
-// 		editLink.innerHTML = editText;
-// 		linksLi.appendChild(editLink);
+		//add line break for links
+		var breakTag = document.createElement('br');
+		$(linksLi).appendTo(breakTag);
 
-// 		//add line break for links
-// 		var breakTag = document.createElement('br');
-// 		linksLi.appendChild(breakTag);
+		//add delete single item link
+		var deleteLink = document.createElement('a');
+		$(deleteLink).attr("id", "deleteA");
+		deleteLink.href = "#";
+		deleteLink.key = key;
+		var deleteText = "Delete Comic";
+		$(deleteLink).on("click", deleteItem);
+		deleteLink.html = deleteText;
+		$(linksLi).appendTo(deleteLink);
 
-// 		//add delete single item link
-// 		var deleteLink = document.createElement('a');
-// 		deleteLink.setAttribute("id", "deleteA");
-// 		deleteLink.href = "#";
-// 		deleteLink.key = key;
-// 		var deleteText = "Delete Comic";
-// 		deleteLink.addEventListener("click", deleteItem);
-// 		deleteLink.innerHTML = deleteText;
-// 		linksLi.appendChild(deleteLink);
+		//Creates a horizontal line/separator after each item
+		var hr = document.createElement('hr');
+		$(linksLi).appendTo(hr);
+	};
 
-// 		//Creates a horizontal line/separator after each item
-// 		var hr = document.createElement('hr');
-// 		linksLi.appendChild(hr);
-// 	};
+	var	editItem = function (){
+		//Grab the data from our item in Local Storage
+		var value = localStorage.getItem(this.key);
+		var item = JSON.parse(value);
 
-// 	var	editItem = function (){
-// 		//Grab the data from our item in Local Storage
-// 		var value = localStorage.getItem(this.key);
-// 		var item = JSON.parse(value);
+		//populate the form fields with current Local Storage values
+		$('#comicTitle').value 	= item.comicTitle[1];
+		$('#seriesTitle').value 	= item.seriesTitle[1];
+		$('#issueNum').value 	= item.issueNum[1];
+		$('#dateReleased').value = item.dateReleased[1];
+		$('#publisher').value 	= item.publisher[1];
+		$('#rateIssue').value 	= item.rateIssue[1];
+		$('#genre').value 		= item.genre[1];
+		var radios = $('#illStyle');
+		for(var i=0; i<radios.length; i++){		
+			if(radios[i].value == "Full Color" && item.illStyle[1] == "Full Color"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Black & White" && item.illStyle[1] == "Black & White"){
+				radios[i].setAttribute("checked", "checked");
+			}else if(radios[i].value == "Combination" && item.illStyle[1] == "Combination"){
+				radios[i].setAttribute("checked", "checked");
+			}
+		}
+		$('#comments').value 	= item.comments[1];
 
-// 		//populate the form fields with current Local Storage values
-// 		e('comicTitle').value 	= item.comicTitle[1];
-// 		e('seriesTitle').value 	= item.seriesTitle[1];
-// 		e('issueNum').value 	= item.issueNum[1];
-// 		e('dateReleased').value = item.dateReleased[1];
-// 		e('publisher').value 	= item.publisher[1];
-// 		e('rateIssue').value 	= item.rateIssue[1];
-// 		e('genre').value 		= item.genre[1];
-// 		var radios = document.forms[0].illStyle;
-// 		for(var i=0; i<radios.length; i++){
-// 			if(radios[i].value == "Full Color" && item.illStyle[1] == "Full Color"){
-// 				radios[i].setAttribute("checked", "checked");
-// 			}else if(radios[i].value == "Black & White" && item.illStyle[1] == "Black & White"){
-// 				radios[i].setAttribute("checked", "checked");
-// 			}else if(radios[i].value == "Combination" && item.illStyle[1] == "Combination"){
-// 				radios[i].setAttribute("checked", "checked");
-// 			}
-// 		}
-// 		e('comments').value 	= item.comments[1];
+		//Remove the initial listener from the input 'save comic' button
+		//Change Submit button value to Edit button
+		$('#submit').value = "Edit Comic";
+		var editSubmit = $('#submit');
+		//Save the key value established in this function as a property of the editSubmit event
+		//so we can use that value when we save the data we edited
+	 	editSubmit.on("click", storeData);
+	 	editSubmit.key = this.key;
+	};
 
-// 		//Remove the initial listener from the input 'save comic' button
-// 		//Change Submit button value to Edit button
-// 		e('submit').value = "Edit Comic";
-// 		var editSubmit = e('submit');
+	var	deleteItem = function (){
+		var ask = confirm("Are you sure you want to delete this comic?");
+		if(ask){
+			localStorage.removeItem(this.key);
+			alert("Comic was deleted!");
+			window.location.reload();
+		}else{
+			alert("Comic was NOT deleted!");
+		}		
+	};
+						
+	var clearLocal = function(){
+		if(localStorage.length === 0){
+			alert("There is no data to clear.");
+		}else{
+			localStorage.clear();
+			alert("All comics were deleted!");
+			window.location.reload();
+			return false;
+		}
+	};
+
+	//Set Link and Submit Click Events
+	var displayLink = $('#displayData');
+	$(displayLink).on("click", getData);
+	var clearLink = $('#clearData');
+	$(clearLink).on("click", clearLocal);
+	var save = $('#submit');
+	$(save).on("click", storeData);
+
+});
+
+$('#superhero').on('pageinit', function(){
+	//code needed for superhero page goes here
+
+});
+
+$('#western').on('pageinit', function(){
+	//code needed for western page goes here
+
+});
+
+$('#horror').on('pageinit', function(){
+	//code needed for horror page goes here
+
+});
+
+$('#romance').on('pageinit', function(){
+	//code needed for romance page goes here
+
+});
+
+$('#scifi').on('pageinit', function(){
+	//code needed for scifi page goes here
+
+});
+
+$('#covers').on('pageinit', function(){
+	//code needed for covers page goes here
+
+});
+
+$('#about').on('pageinit', function(){
+	//code needed for about page goes here
+
+});
+
+$('#construction').on('pageinit', function(){
+	//code needed for construction page goes here
+
+});
+
+$('#dataDisplay').on('pageinit', function(){
+	//code needed for display page goes here
+
+});
+
+tSubmit = e('submit');
 // 		// //Save the key value established in this function as a property of the editSubmit event
 // 		// //so we can use that value when we save the data we edited
 // 		editSubmit.addEventListener("click", storeData);
