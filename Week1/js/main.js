@@ -33,7 +33,7 @@ $('#addItem').on('pageinit', function(){
 		var radios = $('#illStyle');
 		for(var i=0; i<radios.length; i++){
 			if(radios[i].checked){
-				styleValue = radios[i].value;
+				styleValue = radios[i].val();
 			}
 		}
 	};
@@ -102,15 +102,15 @@ $('#addItem').on('pageinit', function(){
 		//Object properties contain an array with the form label and input value
 		getSelectedRadio();
 		var item 				= {};
-			item.comicTitle		= ["Title of Comic:", $('#comicTitle').value];
-			item.seriesTitle	= ["Title of Series:", $('#seriesTitle').value];
-			item.issueNum		= ["Issue Number:", $('#issueNum').value];
-			item.dateReleased	= ["Date Released:", $('#dateReleased').value];
-			item.publisher		= ["Publisher:", $('#publisher').value];
-			item.rateIssue		= ["Rate of Issue:", $('#rateIssue').value];
-			item.genre 			= ["Genre:", $('#genre').value];
+			item.comicTitle		= ["Title of Comic:", $('#comicTitle').val()];
+			item.seriesTitle	= ["Title of Series:", $('#seriesTitle').val()];
+			item.issueNum		= ["Issue Number:", $('#issueNum').val()];
+			item.dateReleased	= ["Date Released:", $('#dateReleased').val()];
+			item.publisher		= ["Publisher:", $('#publisher').val()];
+			item.rateIssue		= ["Rate of Issue:", $('#rateIssue').val()];
+			item.genre 			= ["Genre:", $('#genre').val()];
 			item.illStyle		= ["Illustration Style:", styleValue];
-			item.comments		= ["Comments:", $('#comments').value];
+			item.comments		= ["Comments:", $('#comments').val()];
 		//Save data into Local Storage: Use Stringify to convert our object to a string
 		localStorage.setItem(id, JSON.stringify(item));
 		alert("Comic saved to index!");
@@ -153,28 +153,28 @@ $('#addItem').on('pageinit', function(){
 		var item = JSON.parse(value);
 
 		//populate the form fields with current Local Storage values
-		$('#comicTitle').value 	= item.comicTitle[1];
-		$('#seriesTitle').value 	= item.seriesTitle[1];
-		$('#issueNum').value 	= item.issueNum[1];
-		$('#dateReleased').value = item.dateReleased[1];
-		$('#publisher').value 	= item.publisher[1];
-		$('#rateIssue').value 	= item.rateIssue[1];
-		$('#genre').value 		= item.genre[1];
+		$('#comicTitle').val() 	= item.comicTitle[1];
+		$('#seriesTitle').val() 	= item.seriesTitle[1];
+		$('#issueNum').val() 	= item.issueNum[1];
+		$('#dateReleased').val() = item.dateReleased[1];
+		$('#publisher').val() 	= item.publisher[1];
+		$('#rateIssue').val() 	= item.rateIssue[1];
+		$('#genre').val() 		= item.genre[1];
 		var radios = $('#illStyle');
 		for(var i=0; i<radios.length; i++){		
-			if(radios[i].value == "Full Color" && item.illStyle[1] == "Full Color"){
-				radios[i].setAttribute("checked", "checked");
-			}else if(radios[i].value == "Black & White" && item.illStyle[1] == "Black & White"){
-				radios[i].setAttribute("checked", "checked");
-			}else if(radios[i].value == "Combination" && item.illStyle[1] == "Combination"){
-				radios[i].setAttribute("checked", "checked");
+			if(radios[i].val() == "Full Color" && item.illStyle[1] == "Full Color"){
+				radios[i].attr("checked", "checked");
+			}else if(radios[i].val() == "Black & White" && item.illStyle[1] == "Black & White"){
+				radios[i].attr("checked", "checked");
+			}else if(radios[i].val() == "Combination" && item.illStyle[1] == "Combination"){
+				radios[i].attr("checked", "checked");
 			}
 		}
-		$('#comments').value 	= item.comments[1];
+		$('#comments').val() 	= item.comments[1];
 
 		//Remove the initial listener from the input 'save comic' button
 		//Change Submit button value to Edit button
-		$('#submit').value = "Edit Comic";
+		$('#submit').val() = "Edit Comic";
 		var editSubmit = $('#submit');
 		//Save the key value established in this function as a property of the editSubmit event
 		//so we can use that value when we save the data we edited
