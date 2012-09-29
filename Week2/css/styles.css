@@ -1,0 +1,107 @@
+/*
+Author: Courtney Ardis 
+Project: ASD Project 1
+Term: 1210
+*/
+
+/* This css file is linked to index.html, addItem.html and construction.html*/
+/* Code is in logical order based on the addItem.html page */
+/* Section comments indicate where the selectors come from even though the style applies to all elements on the page(s) in which the stylesheet is linked */
+
+/* body element on both the index.html and addItem.hmtl page */
+body{
+	background: url(../images/backgroundLines.png);
+	letter-spacing: .07em;
+	word-wrap: break-word;
+}
+
+div#about.ui-page.ui-body-a p, div#covers.ui-page.ui-body-a div, div#covers.ui-page.ui-body-a small, div#horror.ui-page.ui-body-a p, div#superhero.ui-page.ui-body-a p, div#romance.ui-page.ui-body-a p, div#western.ui-page.ui-body-a p,div#scifi.ui-page.ui-body-a p, div#construction.ui-page.ui-body-a p{
+	color: #fff;
+}
+
+#covers .ui-grid-b{
+	text-align: center;
+}
+
+.logo {
+	float: left;
+	display:inline;
+}
+
+.override {
+	overflow-x: visible;
+}
+
+.ui-header .ui-title {
+	margin-left: 1em; 
+	margin-right: 1em; 
+
+}
+
+#inputHint{
+	color: grey;
+}
+
+label.error{
+	color: red;
+	font-size: 10pt;
+	display: block;
+}
+
+/* li element with the id="required" on the addItem.html page */
+#required{
+	font-size: 7pt;
+	margin-bottom: 15px;
+	color: red;
+}
+
+/* elements with the class="label" and class="input" on the addItem.page */
+.label, .input {
+	display: block;
+}
+
+/* a element with the id="deleteA" dynamically created on the addItem.html page with JavaScript */
+#deleteA {
+	display: block;
+}
+
+/* textarea element with an id="comments" on the addItem.html page  */
+#comments {
+	vertical-align: text-top;
+	display: block;
+}
+
+/* ul element within div element which is dynamically created by JavaScript to display data on the addItem page */
+div#data.ui-content ul{
+    float: left;
+    list-style-type: none;
+    margin: 5px 0px;
+    padding: 0px;
+}
+
+span.ui-btn-text {
+	word-wrap: break-word;
+}
+
+form {
+	margin: 15px;
+}
+
+/* li element within ul element within div element which is dynamically created by JavaScript to display data on the addItem.html page */
+div ul li {
+    list-style-type: none;
+}
+
+/*Horizontal line after each item*/
+hr{
+	float: left;
+    height: 12px;
+    width: 300px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);
+}
+
+/* a element with an id="addNew" on the addItem.html page */
+#addNew{
+	display: none;
+}
