@@ -1,6 +1,6 @@
 /*
 Author: Courtney Ardis 
-Project: ASD Project 1
+Project: ASD Project 2
 Term: 1210
 */
 
@@ -50,11 +50,11 @@ $('#addItem').on('pageinit', function(){
 
 	//Get the image for the right category
 	var getImage = function(catName, makeSubList){
-		var imageLi = document.createElement('li');
-		$(makeSubList).appendTo(imageLi);
-		var newImg = document.createElement('img');
-		var setSrc = $(newImg).attr("src", "images/" + catName + ".png");
-		$(imageLi).appendTo(newImg);
+		var imageLi = $('<li>');
+		makeSubList.appendTo(imageLi);
+		var newImg = $('<img>');
+		var setSrc = newImg.attr("src", "images/" + catName + ".png");
+		newImg.appendTo(imageLi);
 	};
 
 	var getData = function(){
@@ -64,25 +64,25 @@ $('#addItem').on('pageinit', function(){
 		}
 		//Write Data from Local Storage to the browser
 		var makeDiv = $('#data');
-		var makeList = document.createElement('ul'); 
-		$(makeDiv).appendTo(makeList);
+		var makeList = $('<ul>'); 
+		makeList.appendTo(makeDiv);
 		for(var i=0, j=localStorage.length; i<j; i++){
-			var makeLi = document.createElement('li');
-			var linksLi = document.createElement('li');
-			$(makeList).appendTo(makeLi);
+			var makeLi = $('<li>');
+			var linksLi = $('<li>');
+			makeLi.appendTo(makeList);
 			var key = localStorage.key(i);
 			var value = localStorage.getItem(key);
 			//Convert the string from local storage value back to an object by using JSON.parse()
 			var obj = JSON.parse(value);
-			var makeSubList = document.createElement('ul');
-			$(makeLi).appendTo(makeSubList);
+			var makeSubList = $('<ul>');
+			makeLi.appendTo(makeSubList);
 			getImage(obj.genre[1], makeSubList);
 			for (var n in obj){
-				var makeSubLi = document.createElement('li');
-				$(makeSubList).appendTo(makeSubLi);
+				var makeSubLi = $('<li>');
+				makeSubLi.appendTo(makeSubList);
 				var optSubText = obj[n][0] + " " + obj[n][1];
-				makeSubLi.html = optSubText;
-				$(makeSubList).appendTo(linksLi);
+				makeSubLi.html(optSubText);
+				linksLi.appendTo(makeSubList);
 			}
 			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
 		}
@@ -120,31 +120,31 @@ $('#addItem').on('pageinit', function(){
 	//Create the edit and delete links for each stored item when displayed
 	var makeItemLinks = function(key, linksLi){
 		//add edit single item link
-		var editLink = document.createElement('a');
+		var editLink = $('<a>');
 		editLink.href = $("#addItem");
 		editLink.key = key;
 		var editText = "Edit Comic";
-		$(editLink).on("click", editItem);
-		editLink.html = editText;
-		$(linksLi).appendTo(editLink);
+		editLink.on("click", editItem)
+				.html(editText)
+				.appendTo(linksLi);
 
 		//add line break for links
-		var breakTag = document.createElement('br');
-		$(linksLi).appendTo(breakTag);
+		var breakTag = $('<br>');
+		breakTag.appendTo(linksLi);
 
 		//add delete single item link
-		var deleteLink = document.createElement('a');
-		$(deleteLink).attr("id", "deleteA");
+		var deleteLink = $('<a>');
+		deleteLink.attr("id", "deleteA")
 		deleteLink.href = "#";
 		deleteLink.key = key;
 		var deleteText = "Delete Comic";
-		$(deleteLink).on("click", deleteItem);
-		deleteLink.html = deleteText;
-		$(linksLi).appendTo(deleteLink);
+		deleteLink.on("click", deleteItem)
+				  .html(deleteText)
+				  .appendTo(linksLi);
 
 		//Creates a horizontal line/separator after each item
-		var hr = document.createElement('hr');
-		$(linksLi).appendTo(hr);
+		var hr = $('<hr>');
+		hr.appendTo(linksLi);
 	};
 
 	var	editItem = function (){
@@ -178,8 +178,8 @@ $('#addItem').on('pageinit', function(){
 		var editSubmit = $('#submit');
 		//Save the key value established in this function as a property of the editSubmit event
 		//so we can use that value when we save the data we edited
-	 	editSubmit.on("click", storeData);
-	 	editSubmit.key = this.key;
+	 	editSubmit.on("click", storeData)
+	 			  .key(this.key);
 	};
 
 	var	deleteItem = function (){
@@ -206,11 +206,11 @@ $('#addItem').on('pageinit', function(){
 
 	//Set Link and Submit Click Events
 	var displayLink = $('#displayData');
-	$(displayLink).on("click", getData);
+	displayLink.on("click", getData);
 	var clearLink = $('#clearData');
-	$(clearLink).on("click", clearLocal);
+	clearLink.on("click", clearLocal);
 	var save = $('#submit');
-	$(save).on("click", storeData);
+	save.on("click", storeData);
 
 });
 
