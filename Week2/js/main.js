@@ -27,7 +27,7 @@ $('#addItem').on('pageinit', function(){
 	 var //comicGenre = ["--Choose A Genre--", "Superhero", "Horror", "Sci-Fi", "Western", "Romance"],
 		styleValue,
 		errMsg = $('#errors');
-	
+
 	//Find value of the selected radio button for the storeData function
 	var getSelectedRadio = function(){
 		var radios = $('#illStyle');
@@ -214,6 +214,87 @@ $('#addItem').on('pageinit', function(){
 
 });
 
+//Display Data page functions
+$('#dataDisplay').on('pageinit', function(){
+
+	//Display JSON data
+	$("#jsonBtn").on("click", function(){
+		console.log("Starting JSON");
+		$("#list").empty();
+		//AJAX call for JSON data
+		$.ajax({
+			url: "xhr/data.json",
+			type: "GET",
+			dateType: "json",
+			success: function(json, status){
+				var list = $("#list");
+				console.log(status, json);
+				$.each(json, function(i, comics, styleValue, catName, item){
+					//Insert parsing code here
+					//Parse data - WORK ON THIS!!!
+				//     var makeLi = $("<li id='listItem"+i+"'></li>");
+				//     var optSubText = $( "<img src='images/"+ catName +".jpg'/>"+
+		  //   				"<p>"+comics.comicTitle[0]+" "+comics.comicTitle[1]+"</p>"+
+		  //   				"<p>"+seriesTitle[0]+" "+seriesTitle[1]+"</p>"+
+		  //   				"<p>"+issueNum[0]+" "+issueNum[1]+"</p>"+
+		  //   				"<p>"+dateReleased[0]+" "+dateReleased[1]+"</p>"+
+		  //   				"<p>"+publisher[0]+" "+publisher[1]+"</p>"+
+		  //   				"<p>"+rateIssue[0]+" "+rateIssue[1]+"</p>"+
+		  //   				"<p>"+genre[0]+" "+genre[1]+"</p>"+
+		  //   				"<p>"+comments[0]+" "+comments[1]+"</p>");
+			  	})
+				$("#list").listview('refresh');
+			},
+			error: function(result){
+				console.log(result);
+			}
+		});
+	});
+
+// 	//Display XML data
+// 	$("#xmlBtn").on("click", function(){
+// 		console.log("Starting XML");
+// 		$("#list").empty();
+// 		//AJAX call for XML data
+// 		$.ajax({
+// 			url: "xhr/data.xml",
+// 			type: "GET",
+// 			dataType: "xml"
+// 			success: function(xml){
+// 				console.log(xml.list);
+// 				for(var i=0; i<localStorage.length; i++){
+// 					//Insert parsing code here
+// 				}
+// 			},
+// 			error: function(result){
+// 				console.log(result);
+// 			}
+// 		});
+// 	});
+
+// 	//Display WDDX data
+// 	$("#wddxBtn").on("click", function(){
+// 		console.log("Starting WDDX");
+// 		$("#list").empty();
+// 		//AJAX call for XML data
+// 		$.ajax({
+// 			url: "xhr/data.wddx",
+// 			type: "GET",
+// 			dataType: "wddx"
+// 			success: function(wddx){
+// 				console.log(wddx.list);
+// 				for(var i=0; i<localStorage.length; i++){
+// 					//Insert parsing code here
+// 				}
+// 			},
+// 			error: function(result){
+// 				console.log(result);
+// 			}
+// 		});
+// 	});
+
+}); //END Display Data page functions
+
 $('#superhero').on('pageinit', function(){
 	//code needed for superhero page goes here
 
@@ -254,7 +335,3 @@ $('#construction').on('pageinit', function(){
 
 });
 
-$('#dataDisplay').on('pageinit', function(){
-	//code needed for display page goes here
-
-});
