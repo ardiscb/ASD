@@ -478,16 +478,25 @@ Term: 1210
 		</div>
 		<!-- Content -->
 		<div data-role="content" id="data">
-			<a id="jsonBtn" href="data.json" data-role="button" data-inline="true">JSON</a>
-			<a id="xmlBtn" href="data.xml" data-role="button" data-inline="true">XML</a>
-			<a id="wddxBtn" href="data.wddx" data-role="button" data-inline="true">WDDX</a>
-
-			<ul id="list" data-role="listview">
-				<!--Dynamically created by JS-->
-
-			</ul>
+			<a id="jsonBtn" href="#jsonContent" data-role="button" data-inline="true">JSON</a>
+			<a id="xmlBtn" href="#xmlContent" data-role="button" data-inline="true">XML</a>
+			<a id="csvBtn" href="#csvContent" data-role="button" data-inline="true">CSV</a>
 		</div>
-		
+		<!-- JSON -->		
+		<div data-role="content" id="jsonContent" data-role="listview">
+			<!--Dynamically created by JS-->
+			
+		</div>
+		<!-- XML -->
+		<div data-role="content" id="xmlContent" data-role="listview">
+			<!--Dynamically created by JS-->
+			
+		</div>
+		<!-- CSV -->
+		<div data-role="content" id="csvContent" data-role="listview">
+			<!--Dynamically created by JS-->
+			
+		</div>
 		<!-- Footer -->
 		<div data-role="footer" data-position="fixed" data-id="home" data-theme="b">
 			<!-- Nav Bar -->
@@ -504,8 +513,6 @@ Term: 1210
 		</div>
 
 	</div>
-
-	<!-- End Display Data page -->
 
 	<!-- Construction page -->
 
