@@ -1,1 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Format in XML -->
+<comics>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle>Trinity</seriesTitle>
+		<issueNum>5</issueNum>
+		<dateReleased>2008-07-02</dateReleased>
+		<publisher>Marvel Comics</publisher>
+		<rateIssue>5</rateIssue>
+		<genre>Superhero</genre>
+		<illStyle>Full Color</illStyle>
+		<comments>Wonder Woman and Konvikt cover</comments>
+	</comic>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle></seriesTitle>
+		<issueNum></issueNum>
+		<dateReleased></dateReleased>
+		<publisher></publisher>
+		<rateIssue></rateIssue>
+		<genre></genre>
+		<illStyle></illStyle>
+		<comments></comments>
+	</comic>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle></seriesTitle>
+		<issueNum></issueNum>
+		<dateReleased></dateReleased>
+		<publisher></publisher>
+		<rateIssue></rateIssue>
+		<genre></genre>
+		<illStyle></illStyle>
+		<comments></comments>
+	</comic>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle></seriesTitle>
+		<issueNum></issueNum>
+		<dateReleased></dateReleased>
+		<publisher></publisher>
+		<rateIssue></rateIssue>
+		<genre></genre>
+		<illStyle></illStyle>
+		<comments></comments>
+	</comic>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle></seriesTitle>
+		<issueNum></issueNum>
+		<dateReleased></dateReleased>
+		<publisher></publisher>
+		<rateIssue></rateIssue>
+		<genre></genre>
+		<illStyle></illStyle>
+		<comments></comments>
+	</comic>
+<comics>
