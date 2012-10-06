@@ -264,9 +264,9 @@ $('#dataDisplay').on('pageinit', function(){
 			url: "xhr/data.xml",
 			type: "GET",
 			dataType: "xml",
-			success: function(xml, status){
+			success: function(xml, status, data){
 				alert("XML data retrieved successfully!");
-				console.log(status, xml);            
+				console.log(status, xml);          
 	            $(xml).find("comic").each(function(){
 	                var comicTitle = $(this).find('comicTitle').text();
 	                var seriesTitle = $(this).find('seriesTitle').text();
