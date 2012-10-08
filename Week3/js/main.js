@@ -1,6 +1,6 @@
 /*
 Author: Courtney Ardis 
-Project: ASD Project 2
+Project: ASD Project 3
 Term: 1210
 */
 
@@ -234,15 +234,15 @@ $('#dataDisplay').on('pageinit', function(){
                     $('' +
                     	'<div id="jsonComicList">' +
 	                    	'<ul>' +
-			                    '<li>' + whatComic.comicTitle[0] + ' ' + whatComic.comicTitle[1] + '</li>'+
-			                    '<li>' + whatComic.seriesTitle[0] + ' ' + whatComic.seriesTitle[1] + '</li>'+
-			                    '<li>' + whatComic.issueNum[0] + ' ' + whatComic.issueNum[1] + '</li>'+
-			                    '<li>' + whatComic.dateReleased[0] + ' ' + whatComic.dateReleased[1] + '</li>'+
-			                    '<li>' + whatComic.publisher[0] + ' ' + whatComic.publisher[1] + '</li>'+
-			                    '<li>' + whatComic.rateIssue[0] + ' ' + whatComic.rateIssue[1] + '</li>'+
-			                    '<li>' + whatComic.genre[0] + ' ' + whatComic.genre[1] + '</li>'+
-			                    '<li>' + whatComic.illStyle[0] + ' ' + whatComic.illStyle[1] + '</li>'+
-			                    '<li>' + whatComic.comments[0] + ' ' + whatComic.comments[1] + '</li>' +
+			                    '<li>' + "Title of Comic:" + ' ' + whatComic.comicTitle[0] + '</li>'+
+			                    '<li>' + "Title of Series:" + ' ' + whatComic.seriesTitle[0] + '</li>'+
+			                    '<li>' + "Issue Number:" + ' ' + whatComic.issueNum[0] + '</li>'+
+			                    '<li>' + "Date Released:" + ' ' + whatComic.dateReleased[0] + '</li>'+
+			                    '<li>' + "Publisher:" + ' ' + whatComic.publisher[0] + '</li>'+
+			                    '<li>' + "Rate Issue:" + ' ' + whatComic.rateIssue[0] + '</li>'+
+			                    '<li>' + "Genre:" + ' ' + whatComic.genre[0] + '</li>'+
+			                    '<li>' + "Illustration Style:" + ' ' + whatComic.illStyle[0] + '</li>'+
+			                    '<li>' + "Comments:" + ' ' + whatComic.comments[0] + '</li>' +
 		                    '</ul>' +
 	                    '</div>'
                     ).appendTo('#jsonContent');   

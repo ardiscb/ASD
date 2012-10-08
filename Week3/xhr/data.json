@@ -1,0 +1,124 @@
+{
+	"comics" : [
+	{
+		"comicTitle": "Truth...",
+		"seriesTitle": "Trinity",
+		"issueNum": "10",
+		"dateReleased": "2008-08-06",
+		"publisher": "DC Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Wonder woman cover"
+	},
+	{
+		"comicTitle": "The Vampire Walks Among Us",
+		"seriesTitle": "The Tomb of Dracula",
+		"issueNum": "37",
+		"dateReleased": "1975-10-01",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Horror",
+		"illStyle": "Full Color",
+		"comments": ""
+	},
+	{
+		"comicTitle": "Conan the Barbarian...were stranded in the 20th Century?",
+		"seriesTitle": "What If",
+		"issueNum": "43",
+		"dateReleased": "1984-02-01",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Sci-Fi",
+		"illStyle": "Full Color",
+		"comments": "Meets Captain America"
+	},
+	{
+		"comicTitle": "Rogue",
+		"seriesTitle": "Rogue",
+		"issueNum": "1",
+		"dateReleased": "1995-01-01",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "First Issue Collector's Item"
+	},
+	{
+		"comicTitle": "Battleground",
+		"seriesTitle": "Rogue",
+		"issueNum": "2",
+		"dateReleased": "1995-02-02",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Loved it"
+	},
+	{
+		"comicTitle": "Rogue",
+		"seriesTitle": "Rogue",
+		"issueNum": "3",
+		"dateReleased": "1995-03-03",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Candra"
+	},
+	{
+		"comicTitle": "The Last Good-bye",
+		"seriesTitle": "Rogue",
+		"issueNum": "4",
+		"dateReleased": "1995-04-04",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Cody on the cover"
+	},
+	{
+		"comicTitle": "",
+		"seriesTitle": "Trinity",
+		"issueNum": "1",
+		"dateReleased": "2008-06-04",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Superman cover"
+	},
+	{
+		"comicTitle": "",
+		"seriesTitle": "Trinity",
+		"issueNum": "2",
+		"dateReleased": "2008-06-11",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Batman on cover"
+	},
+	{
+		"comicTitle": "",
+		"seriesTitle": "Trinity",
+		"issueNum": "3",
+		"dateReleased": "2008-06-18",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Wonder Woman cover"
+	},
+	{
+		"comicTitle": "",
+		"seriesTitle": "Trinity",
+		"issueNum": "4",
+		"dateReleased": "2008-06-25",
+		"publisher": "Marvel Comics",
+		"rateIssue": "5",
+		"genre": "Superhero",
+		"illStyle": "Full Color",
+		"comments": "Superman cover"
+	}]
+}
