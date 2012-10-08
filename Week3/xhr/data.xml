@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comics>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle>Trinity</seriesTitle>
+		<issueNum>5</issueNum>
+		<dateReleased>2008-07-02</dateReleased>
+		<publisher>Marvel Comics</publisher>
+		<rateIssue>5</rateIssue>
+		<genre>Superhero</genre>
+		<illStyle>Full Color</illStyle>
+		<comments>Wonder Woman and Konvikt cover</comments>
+	</comic>
+	<comic>
+		<comicTitle>Boss of Gila Gap</comicTitle>
+		<seriesTitle>Western Comics</seriesTitle>
+		<issueNum>1</issueNum>
+		<dateReleased>1948-02-01</dateReleased>
+		<publisher>DC Comics</publisher>
+		<rateIssue>5</rateIssue>
+		<genre>Western</genre>
+		<illStyle>Full Color</illStyle>
+		<comments>The Bronc that Couldn't Bust, Jesse James Rides Again, The Jailbreaker</comments>
+	</comic>
+	<comic>
+		<comicTitle>Pursuit Part Three</comicTitle>
+		<seriesTitle>Web of Spider-man</seriesTitle>
+		<issueNum>112</issueNum>
+		<dateReleased>1994-05-01</dateReleased>
+		<publisher>Marvel Comics</publisher>
+		<rateIssue>5</rateIssue>
+		<genre>Superhero</genre>
+		<illStyle>Full Color</illStyle>
+		<comments>Spider-man and Chameleon</comments>
+	</comic>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle>Trinity</seriesTitle>
+		<issueNum>7</issueNum>
+		<dateReleased>2008-07-16</dateReleased>
+		<publisher>Marvel Comics</publisher>
+		<rateIssue>5</rateIssue>
+		<genre>Superhero</genre>
+		<illStyle>Full Color</illStyle>
+		<comments>Wonder Woman cover</comments>
+	</comic>
+	<comic>
+		<comicTitle></comicTitle>
+		<seriesTitle>Trinity</seriesTitle>
+		<issueNum>6</issueNum>
+		<dateReleased>2008-07-09</dateReleased>
+		<publisher>Marvel Comics</publisher>
+		<rateIssue>5</rateIssue>
+		<genre>Superhero</genre>
+		<illStyle>Full Color</illStyle>
+		<comments>Batman cover</comments>
+	</comic>
+</comics>
