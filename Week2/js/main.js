@@ -1,6 +1,6 @@
 /*
 Author: Courtney Ardis 
-Project: ASD Project 2
+Project: ASD Project 3
 Term: 1210
 */
 
@@ -228,21 +228,22 @@ $('#dataDisplay').on('pageinit', function(){
 			dateType: "json",
 			success: function(json, status){
 				alert("JSON data retrieved successfully!");
-				console.log(status, json);
-				for(var i in data.json){
-                    var whatComic = data.json[i];
+				console.log(json);
+				for(var i = 0, j = json.comics.length; i < j; i++){
+                    var whatComic = json.comics[i];
+                    console.log(whatComic);
                     $('' +
                     	'<div id="jsonComicList">' +
 	                    	'<ul>' +
-			                    '<li>' + whatComic.comicTitle[0] + ' ' + whatComic.comicTitle[1] + '</li>'+
-			                    '<li>' + whatComic.seriesTitle[0] + ' ' + whatComic.seriesTitle[1] + '</li>'+
-			                    '<li>' + whatComic.issueNum[0] + ' ' + whatComic.issueNum[1] + '</li>'+
-			                    '<li>' + whatComic.dateReleased[0] + ' ' + whatComic.dateReleased[1] + '</li>'+
-			                    '<li>' + whatComic.publisher[0] + ' ' + whatComic.publisher[1] + '</li>'+
-			                    '<li>' + whatComic.rateIssue[0] + ' ' + whatComic.rateIssue[1] + '</li>'+
-			                    '<li>' + whatComic.genre[0] + ' ' + whatComic.genre[1] + '</li>'+
-			                    '<li>' + whatComic.illStyle[0] + ' ' + whatComic.illStyle[1] + '</li>'+
-			                    '<li>' + whatComic.comments[0] + ' ' + whatComic.comments[1] + '</li>' +
+			                    '<li>' + "Title of Comic:" + ' ' + whatComic.comicTitle + '</li>'+
+			                    '<li>' + "Title of Series:" + ' ' + whatComic.seriesTitle + '</li>'+
+			                    '<li>' + "Issue Number:" + ' ' + whatComic.issueNum + '</li>'+
+			                    '<li>' + "Date Released:" + ' ' + whatComic.dateReleased + '</li>'+
+			                    '<li>' + "Publisher:" + ' ' + whatComic.publisher + '</li>'+
+			                    '<li>' + "Rate Issue:" + ' ' + whatComic.rateIssue + '</li>'+
+			                    '<li>' + "Genre:" + ' ' + whatComic.genre + '</li>'+
+			                    '<li>' + "Illustration Style:" + ' ' + whatComic.illStyle + '</li>'+
+			                    '<li>' + "Comments:" + ' ' + whatComic.comments + '</li>' +
 		                    '</ul>' +
 	                    '</div>'
                     ).appendTo('#jsonContent');   
@@ -256,101 +257,101 @@ $('#dataDisplay').on('pageinit', function(){
 	});
 
 	//Display XML data
-	$("#xmlBtn").on("click", function(){
-		console.log("Starting XML");
-		$("#xmlContent").empty();
-		//AJAX call for XML data
-		$.ajax({
-			url: "xhr/data.xml",
-			type: "GET",
-			dataType: "xml",
-			success: function(xml, status, data){
-				alert("XML data retrieved successfully!");
-				console.log(status, xml);          
-	            $(xml).find("comic").each(function(){
-	                var comicTitle = $(this).find('comicTitle').text(),
-	                	seriesTitle = $(this).find('seriesTitle').text(),
-	                	issueNum = $(this).find('issueNum').text(),
-	                	dateReleased = $(this).find('dateReleased').text(),
-	                	publisher = $(this).find('publisher').text(),
-	                	rateIssue = $(this).find('rateIssue').text(),
-	                	genre = $(this).find('genre').text(),
-	                	illStyle = $(this).find('illStyle').text(),
-	                	comments = $(this).find('comments').text();
-	                $('' +
-	                	'<div id="xmlComicList">' +
-		                	'<ul>' +
-		                        '<li>' + comicTitle + '</li>' +
-		                        '<li>' + seriesTitle + '</li>' +
-		                        '<li>' + issueNum + '</li>' +
-		                        '<li>' + dateReleased + '</li>' +
-		                        '<li>' + publisher + '</li>' + 
-		                        '<li>' + rateIssue + '</li>' +
-		                        '<li>' + genre + '</li>' +
-		                        '<li>' + illStyle + '</li>' +
-		                        '<li>' + comments + '</li>' +
-	                        '</ul>' +
-	                    '</div>'
-	                ).appendTo('#xmlContent');
-	            });
-				// $("#xmlContent").listview('refresh');
-			},
-			error: function(status, result){
-				console.log(status, result);
-			}
-		});
-	});
+	// $("#xmlBtn").on("click", function(){
+	// 	console.log("Starting XML");
+	// 	$("#xmlContent").empty();
+	// 	//AJAX call for XML data
+	// 	$.ajax({
+	// 		url: "xhr/data.xml",
+	// 		type: "GET",
+	// 		dataType: "xml",
+	// 		success: function(xml, status, data){
+	// 			alert("XML data retrieved successfully!");
+	// 			console.log(status, xml);          
+	//             $(xml).find("comic").each(function(){
+	//                 var comicTitle = $(this).find('comicTitle').text(),
+	//                 	seriesTitle = $(this).find('seriesTitle').text(),
+	//                 	issueNum = $(this).find('issueNum').text(),
+	//                 	dateReleased = $(this).find('dateReleased').text(),
+	//                 	publisher = $(this).find('publisher').text(),
+	//                 	rateIssue = $(this).find('rateIssue').text(),
+	//                 	genre = $(this).find('genre').text(),
+	//                 	illStyle = $(this).find('illStyle').text(),
+	//                 	comments = $(this).find('comments').text();
+	//                 $('' +
+	//                 	'<div id="xmlComicList">' +
+	// 	                	'<ul>' +
+	// 	                        '<li>' + comicTitle + '</li>' +
+	// 	                        '<li>' + seriesTitle + '</li>' +
+	// 	                        '<li>' + issueNum + '</li>' +
+	// 	                        '<li>' + dateReleased + '</li>' +
+	// 	                        '<li>' + publisher + '</li>' + 
+	// 	                        '<li>' + rateIssue + '</li>' +
+	// 	                        '<li>' + genre + '</li>' +
+	// 	                        '<li>' + illStyle + '</li>' +
+	// 	                        '<li>' + comments + '</li>' +
+	//                         '</ul>' +
+	//                     '</div>'
+	//                 ).appendTo('#xmlContent');
+	//             });
+	// 			// $("#xmlContent").listview('refresh');
+	// 		},
+	// 		error: function(status, result){
+	// 			console.log(status, result);
+	// 		}
+	// 	});
+	// });
 
 	//Display CSV data
-	$("#csvBtn").on("click", function(){
-		console.log("Starting CSV");
-		$("#csvContent").empty();
-		//AJAX call for CSV data
-		$.ajax({
-			url: "xhr/data.csv",
-			type: "GET",
-			dataType: "text",
-			success: function(status, csv){
-				alert("CSV data retrieved successfully!");
-				console.log(csv, status);
-                var comics = [];
-                var pulledCSV = csv.split(/\r\n|\n/);
-                var labels = pulledCSV[0].split(',');
-                for(var i=2; i<pulledCSV.length; i++) {
-                    var comic = pulledCSV[i].split(',');
-                    if (comic.length == labels.length) {
-                        var comicData = [];
-                        for (var j=0; j<labels.length; j++){
-                            comicData.push(comic[j]);
-                        }
-                        comics.push(comicData);
-                    }
-                }
-                for(var k=0; k<comics.length; k++){
-                    var comicCat = comics[k];
-                    $('' +
-                    '<div id="csvComicList">'+
-	                    '<ul>'+
-	                        '<li>Title of Comic: ' + comicCat[0] + '</li>'+
-	                        '<li>Title of Series: ' + comicCat[1] + '</li>'+
-	                        '<li>Issue Number: ' + comicCat[2] + '</li>'+
-	                        '<li>Date Released: ' + comicCat[3] + '</li>'+
-	                        '<li>Publisher: ' + comicCat[4] + '</li>'+
-	                        '<li>Rate Issue: ' + comicCat[5] + '</li>'+
-	                        '<li>Genre: ' + comicCat[6] + '</li>'+
-	                        '<li>illStyle: ' + comicCat[7] + '</li>'+
-	                        '<li>Comments: ' + comicCat[8] + '</li>' +
-	                    '</ul>' +
-                    '</div>'
-                    ).appendTo('#csvContent');
-                }
-                // $("#csvContent").listview('refresh');
-			},
-			error: function(status, result){
-				console.log(status, result);
-			}
-		});
-	});
+	// $("#csvBtn").on("click", function(){
+	// 	console.log("Starting CSV");
+	// 	$("#csvContent").empty();
+	// 	//AJAX call for CSV data
+	// 	$.ajax({
+	// 		url: "xhr/data.csv",
+	// 		type: "GET",
+	// 		dataType: "text",
+	// 		success: function(status, csv){
+	// 			alert("CSV data retrieved successfully!");
+	// 			console.log(csv, status);
+ //                var comics = [];
+ //                var pulledCSV = csv.split(/\r\n|\n/);
+ //                var labels = pulledCSV[0].split(',');
+ //                for(var i=2; i<pulledCSV.length; i++) {
+ //                    var comic = pulledCSV[i].split(',');
+ //                    if (comic.length == labels.length) {
+ //                        var comicData = [];
+ //                        for (var j=0; j<labels.length; j++){
+ //                            comicData.push(comic[j]);
+ //                        }
+ //                        comics.push(comicData);
+ //                    }
+ //                }
+ //                for(var k=0; k<comics.length; k++){
+ //                    var comicCat = comics[k];
+ //                    $('' +
+ //                    '<div id="csvComicList">'+
+	//                     '<ul>'+
+	//                         '<li>Title of Comic: ' + comicCat[0] + '</li>'+
+	//                         '<li>Title of Series: ' + comicCat[1] + '</li>'+
+	//                         '<li>Issue Number: ' + comicCat[2] + '</li>'+
+	//                         '<li>Date Released: ' + comicCat[3] + '</li>'+
+	//                         '<li>Publisher: ' + comicCat[4] + '</li>'+
+	//                         '<li>Rate Issue: ' + comicCat[5] + '</li>'+
+	//                         '<li>Genre: ' + comicCat[6] + '</li>'+
+	//                         '<li>illStyle: ' + comicCat[7] + '</li>'+
+	//                         '<li>Comments: ' + comicCat[8] + '</li>' +
+	//                     '</ul>' +
+ //                    '</div>'
+ //                    ).appendTo('#csvContent');
+ //                }
+ //                // $("#csvContent").listview('refresh');
+	// 		},
+	// 		error: function(status, result){
+	// 			console.log(status, result);
+	// 		}
+	// 	});
+	// });
 }); //END Data functions
 
 $('#superhero').on('pageinit', function(){
