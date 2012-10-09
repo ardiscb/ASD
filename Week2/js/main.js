@@ -11,16 +11,17 @@ $('#home').on('pageinit', function(){
 		
 $('#addItem').on('pageinit', function(){
 		delete $.validator.methods.date;
+	var validate = function(){	
 		var myForm = $('#comicForm');
 		    myForm.validate({
-			invalidHandler: function(form, validator) {
-			},
-			submitHandler: function() {
-		var data = myForm.serializeArray();
-			storeData(this.key);
-		}
-	});
-	
+				invalidHandler: function(form, validator) {
+				},
+				submitHandler: function() {
+				var data = myForm.serializeArray();
+					storeData(this.key);
+				}
+			});
+	};
 	//any other code needed for addItem page goes here
 
  	//Variable defaults
@@ -210,7 +211,7 @@ $('#addItem').on('pageinit', function(){
 	var clearLink = $('#clearData');
 	clearLink.on("click", clearLocal);
 	var save = $('#submit');
-	save.on("click", storeData);
+	save.on("click", validate);
 
 });
 
@@ -220,35 +221,31 @@ $('#dataDisplay').on('pageinit', function(){
 	//Display JSON data
 	$("#jsonBtn").on("click", function(){
 		console.log("Starting JSON");
-		$("#jsonContent").empty();
+		$("#jsonComicList").empty();
 		//AJAX call for JSON data
 		$.ajax({
 			url: "xhr/data.json",
 			type: "GET",
-			dateType: "json",
-			success: function(json, status){
+			dataType: "json",
+			success: function(json){
 				alert("JSON data retrieved successfully!");
 				console.log(json);
 				for(var i = 0, j = json.comics.length; i < j; i++){
                     var whatComic = json.comics[i];
                     console.log(whatComic);
                     $('' +
-                    	'<div id="jsonComicList">' +
-	                    	'<ul>' +
-			                    '<li>' + "Title of Comic:" + ' ' + whatComic.comicTitle + '</li>'+
-			                    '<li>' + "Title of Series:" + ' ' + whatComic.seriesTitle + '</li>'+
-			                    '<li>' + "Issue Number:" + ' ' + whatComic.issueNum + '</li>'+
-			                    '<li>' + "Date Released:" + ' ' + whatComic.dateReleased + '</li>'+
-			                    '<li>' + "Publisher:" + ' ' + whatComic.publisher + '</li>'+
-			                    '<li>' + "Rate Issue:" + ' ' + whatComic.rateIssue + '</li>'+
-			                    '<li>' + "Genre:" + ' ' + whatComic.genre + '</li>'+
-			                    '<li>' + "Illustration Style:" + ' ' + whatComic.illStyle + '</li>'+
-			                    '<li>' + "Comments:" + ' ' + whatComic.comments + '</li>' +
-		                    '</ul>' +
-	                    '</div>'
-                    ).appendTo('#jsonContent');   
+	                    '<li><p> Title of Comic:' + whatComic.comicTitle + '</p>'+
+	                    '<p> Title of Series:' + whatComic.seriesTitle + '</p>'+
+	                    '<p> Issue Number:' + whatComic.issueNum + '</p>'+
+	                    '<p> Date Released:' + whatComic.dateReleased + '</p>'+
+	                    '<p> Publisher:' + whatComic.publisher + '</p>'+
+	                    '<p> Rate Issue:' + whatComic.rateIssue + '</p>'+
+	                    '<p> Genre:' + whatComic.genre + '</p>'+
+	                    '<p> Illustration Style:' + whatComic.illStyle + '</p>'+
+	                    '<p> Comments:' + whatComic.comments + '</p></li>'
+                    ).appendTo('#jsonComicList');   
                 }
-				// $("#jsonContent").listview('refresh');
+				$("#jsonComicList").listview('refresh');
 			},
 			error: function(result){
 				console.log(result);
@@ -256,102 +253,98 @@ $('#dataDisplay').on('pageinit', function(){
 		});
 	});
 
-	//Display XML data
-	// $("#xmlBtn").on("click", function(){
-	// 	console.log("Starting XML");
-	// 	$("#xmlContent").empty();
-	// 	//AJAX call for XML data
-	// 	$.ajax({
-	// 		url: "xhr/data.xml",
-	// 		type: "GET",
-	// 		dataType: "xml",
-	// 		success: function(xml, status, data){
-	// 			alert("XML data retrieved successfully!");
-	// 			console.log(status, xml);          
-	//             $(xml).find("comic").each(function(){
-	//                 var comicTitle = $(this).find('comicTitle').text(),
-	//                 	seriesTitle = $(this).find('seriesTitle').text(),
-	//                 	issueNum = $(this).find('issueNum').text(),
-	//                 	dateReleased = $(this).find('dateReleased').text(),
-	//                 	publisher = $(this).find('publisher').text(),
-	//                 	rateIssue = $(this).find('rateIssue').text(),
-	//                 	genre = $(this).find('genre').text(),
-	//                 	illStyle = $(this).find('illStyle').text(),
-	//                 	comments = $(this).find('comments').text();
-	//                 $('' +
-	//                 	'<div id="xmlComicList">' +
-	// 	                	'<ul>' +
-	// 	                        '<li>' + comicTitle + '</li>' +
-	// 	                        '<li>' + seriesTitle + '</li>' +
-	// 	                        '<li>' + issueNum + '</li>' +
-	// 	                        '<li>' + dateReleased + '</li>' +
-	// 	                        '<li>' + publisher + '</li>' + 
-	// 	                        '<li>' + rateIssue + '</li>' +
-	// 	                        '<li>' + genre + '</li>' +
-	// 	                        '<li>' + illStyle + '</li>' +
-	// 	                        '<li>' + comments + '</li>' +
-	//                         '</ul>' +
-	//                     '</div>'
-	//                 ).appendTo('#xmlContent');
-	//             });
-	// 			// $("#xmlContent").listview('refresh');
-	// 		},
-	// 		error: function(status, result){
-	// 			console.log(status, result);
-	// 		}
-	// 	});
-	// });
+	// Display XML data
+	$("#xmlBtn").on("click", function(){
+		console.log("Starting XML");
+		$("#xmlContent").empty();
+		//AJAX call for XML data
+		$.ajax({
+			url: "xhr/data.xml",
+			type: "GET",
+			dataType: "xml",
+			success: function(xml, status, data){
+				alert("XML data retrieved successfully!");
+				console.log(status, xml);          
+	            $(xml).find("comic").each(function(){
+	                var comicTitle = $(this).find('comicTitle').text(),
+	                	seriesTitle = $(this).find('seriesTitle').text(),
+	                	issueNum = $(this).find('issueNum').text(),
+	                	dateReleased = $(this).find('dateReleased').text(),
+	                	publisher = $(this).find('publisher').text(),
+	                	rateIssue = $(this).find('rateIssue').text(),
+	                	genre = $(this).find('genre').text(),
+	                	illStyle = $(this).find('illStyle').text(),
+	                	comments = $(this).find('comments').text();
+	                $('' +
+                        '<li>' + comicTitle + '</li>' +
+                        '<li>' + seriesTitle + '</li>' +
+                        '<li>' + issueNum + '</li>' +
+                        '<li>' + dateReleased + '</li>' +
+                        '<li>' + publisher + '</li>' + 
+                        '<li>' + rateIssue + '</li>' +
+                        '<li>' + genre + '</li>' +
+                        '<li>' + illStyle + '</li>' +
+                        '<li>' + comments + '</li>'
+	                ).appendTo('#xmlContent');
+	            });
+				// $("#xmlContent").listview('refresh');
+			},
+			error: function(status, result){
+				console.log(status, result);
+			}
+		});
+	});
 
-	//Display CSV data
-	// $("#csvBtn").on("click", function(){
-	// 	console.log("Starting CSV");
-	// 	$("#csvContent").empty();
-	// 	//AJAX call for CSV data
-	// 	$.ajax({
-	// 		url: "xhr/data.csv",
-	// 		type: "GET",
-	// 		dataType: "text",
-	// 		success: function(status, csv){
-	// 			alert("CSV data retrieved successfully!");
-	// 			console.log(csv, status);
- //                var comics = [];
- //                var pulledCSV = csv.split(/\r\n|\n/);
- //                var labels = pulledCSV[0].split(',');
- //                for(var i=2; i<pulledCSV.length; i++) {
- //                    var comic = pulledCSV[i].split(',');
- //                    if (comic.length == labels.length) {
- //                        var comicData = [];
- //                        for (var j=0; j<labels.length; j++){
- //                            comicData.push(comic[j]);
- //                        }
- //                        comics.push(comicData);
- //                    }
- //                }
- //                for(var k=0; k<comics.length; k++){
- //                    var comicCat = comics[k];
- //                    $('' +
- //                    '<div id="csvComicList">'+
-	//                     '<ul>'+
-	//                         '<li>Title of Comic: ' + comicCat[0] + '</li>'+
-	//                         '<li>Title of Series: ' + comicCat[1] + '</li>'+
-	//                         '<li>Issue Number: ' + comicCat[2] + '</li>'+
-	//                         '<li>Date Released: ' + comicCat[3] + '</li>'+
-	//                         '<li>Publisher: ' + comicCat[4] + '</li>'+
-	//                         '<li>Rate Issue: ' + comicCat[5] + '</li>'+
-	//                         '<li>Genre: ' + comicCat[6] + '</li>'+
-	//                         '<li>illStyle: ' + comicCat[7] + '</li>'+
-	//                         '<li>Comments: ' + comicCat[8] + '</li>' +
-	//                     '</ul>' +
- //                    '</div>'
- //                    ).appendTo('#csvContent');
- //                }
- //                // $("#csvContent").listview('refresh');
-	// 		},
-	// 		error: function(status, result){
-	// 			console.log(status, result);
-	// 		}
-	// 	});
-	// });
+	// Display CSV data
+	$("#csvBtn").on("click", function(){
+		console.log("Starting CSV");
+		$("#csvContent").empty();
+		//AJAX call for CSV data
+		$.ajax({
+			url: "xhr/data.csv",
+			type: "GET",
+			dataType: "text",
+			success: function(status, csv){
+				alert("CSV data retrieved successfully!");
+				console.log(csv, status);
+                var comics = [];
+                var pulledCSV = csv.split(/\r\n|\n/);
+                var labels = pulledCSV[0].split(',');
+                for(var i=2; i<pulledCSV.length; i++) {
+                    var comic = pulledCSV[i].split(',');
+                    if (comic.length == labels.length) {
+                        var comicData = [];
+                        for (var j=0; j<labels.length; j++){
+                            comicData.push(comic[j]);
+                        }
+                        comics.push(comicData);
+                    }
+                }
+                for(var k=0; k<comics.length; k++){
+                    var comicCat = comics[k];
+                    $('' +
+                    '<div id="csvComicList">'+
+	                    '<ul>'+
+	                        '<li>Title of Comic: ' + comicCat[0] + '</li>'+
+	                        '<li>Title of Series: ' + comicCat[1] + '</li>'+
+	                        '<li>Issue Number: ' + comicCat[2] + '</li>'+
+	                        '<li>Date Released: ' + comicCat[3] + '</li>'+
+	                        '<li>Publisher: ' + comicCat[4] + '</li>'+
+	                        '<li>Rate Issue: ' + comicCat[5] + '</li>'+
+	                        '<li>Genre: ' + comicCat[6] + '</li>'+
+	                        '<li>illStyle: ' + comicCat[7] + '</li>'+
+	                        '<li>Comments: ' + comicCat[8] + '</li>' +
+	                    '</ul>' +
+                    '</div>'
+                    ).appendTo('#csvContent');
+                }
+                // $("#csvContent").listview('refresh');
+			},
+			error: function(status, result){
+				console.log(status, result);
+			}
+		});
+	});
 }); //END Data functions
 
 $('#superhero').on('pageinit', function(){

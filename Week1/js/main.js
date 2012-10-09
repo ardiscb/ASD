@@ -258,4 +258,3 @@ $('#dataDisplay').on('pageinit', function(){
 	//code needed for display page goes here
 
 });
-
