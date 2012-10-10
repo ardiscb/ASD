@@ -56,36 +56,38 @@ $('#addItem').on('pageinit', function(){
 		var setSrc = newImg.attr("src", "images/" + catName + ".png");
 		newImg.appendTo(imageLi);
 	};
-
-	var getData = function(){
-		if(localStorage.length === 0){
-			alert("There is no data in Local Storage so default data was added.");
-			autofillData();
+	
+	//Display JSON on Display Data page
+	var jsonCall = function(){
+		console.log("Starting JSON");
+		$("#jsonComicList").empty();
+		//AJAX call for JSON data
+		$.ajax({
+		url: "_view/comic",
+		type: "GET",
+		dataType: "json",
+		success: function(data){
+			alert("JSON data retrieved successfully!");
+			console.log(data);
+			$.each(data.rows, function(index, comic){
+	            $('' +
+	            		'<li><p> Title of Comic: ' + comic.value.comicTitle + '</p>'+
+	                    '<p> Title of Series: ' + comic.value.seriesTitle + '</p>'+
+	                    '<p> Issue Number: ' + comic.value.issueNum + '</p>'+
+	                    '<p> Date Released: ' + comic.value.dateReleased + '</p>'+
+	                    '<p> Publisher: ' + comic.value.publisher + '</p>'+
+	                    '<p> Rate Issue: ' + comic.value.rateIssue + '</p>'+
+	                    '<p> Genre: ' + comic.value.genre + '</p>'+
+	                    '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
+	                    '<p> Comments: ' + comic.value.comments + '</p></li>'
+	            ).appendTo('#jsonComicList');   
+	        });
+			$("#jsonComicList").listview('refresh');
+		},
+		error: function(result){
+			console.log(result);
 		}
-		//Write Data from Local Storage to the browser
-		var makeDiv = $('#data');
-		var makeList = $('<ul>'); 
-		makeList.appendTo(makeDiv);
-		for(var i=0, j=localStorage.length; i<j; i++){
-			var makeLi = $('<li>');
-			var linksLi = $('<li>');
-			makeLi.appendTo(makeList);
-			var key = localStorage.key(i);
-			var value = localStorage.getItem(key);
-			//Convert the string from local storage value back to an object by using JSON.parse()
-			var obj = JSON.parse(value);
-			var makeSubList = $('<ul>');
-			makeLi.appendTo(makeSubList);
-			getImage(obj.genre[1], makeSubList);
-			for (var n in obj){
-				var makeSubLi = $('<li>');
-				makeSubLi.appendTo(makeSubList);
-				var optSubText = obj[n][0] + " " + obj[n][1];
-				makeSubLi.html(optSubText);
-				linksLi.appendTo(makeSubList);
-			}
-			makeItemLinks(localStorage.key(i), linksLi);//Function call for our edit and delete buttons/links
-		}
+		});//END JSON AJAX call
 	};
 
 	var storeData = function(key){
@@ -206,7 +208,7 @@ $('#addItem').on('pageinit', function(){
 
 	//Set Link and Submit Click Events
 	var displayLink = $('#displayData');
-	displayLink.on("click", getData);
+	displayLink.on("click", jsonCall);
 	var clearLink = $('#clearData');
 	clearLink.on("click", clearLocal);
 	var save = $('#submit');
@@ -218,37 +220,7 @@ $('#addItem').on('pageinit', function(){
 $('#dataDisplay').on('pageinit', function(){
 
 	//Display JSON data
-	$("#jsonBtn").on("click", function(){
-		console.log("Starting JSON");
-		$("#jsonComicList").empty();
-		//AJAX call for JSON data
-		$.ajax({
-		url: "_view/comic",
-		type: "GET",
-		dataType: "json",
-		success: function(data){
-			alert("JSON data retrieved successfully!");
-			console.log(data);
-			$.each(data.rows, function(index, comic){
-	            $('' +
-	            		'<li><p> Title of Comic: ' + comic.value.comicTitle + '</p>'+
-	                    '<p> Title of Series: ' + comic.value.seriesTitle + '</p>'+
-	                    '<p> Issue Number: ' + comic.value.issueNum + '</p>'+
-	                    '<p> Date Released: ' + comic.value.dateReleased + '</p>'+
-	                    '<p> Publisher: ' + comic.value.publisher + '</p>'+
-	                    '<p> Rate Issue: ' + comic.value.rateIssue + '</p>'+
-	                    '<p> Genre: ' + comic.value.genre + '</p>'+
-	                    '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
-	                    '<p> Comments: ' + comic.value.comments + '</p></li>'
-	            ).appendTo('#jsonComicList');   
-	        });
-			$("#jsonComicList").listview('refresh');
-		},
-		error: function(result){
-			console.log(result);
-		}
-		});//END JSON AJAX call
-	});
+	
 }); //END Display Data Page
 
 $('#superhero').on('pageinit', function(){

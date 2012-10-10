@@ -10,7 +10,7 @@ Term: 1210
 
 /* body element on both the index.html and addItem.hmtl page */
 body{
-	background: url(../images/backgroundLines.png);
+	background: url(backgroundLines.png);
 	letter-spacing: .07em;
 	word-wrap: break-word;
 }
