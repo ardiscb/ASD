@@ -67,7 +67,7 @@ $('#addItem').on('pageinit', function(){
 		type: "GET",
 		dataType: "json",
 		success: function(data){
-			alert("JSON data retrieved successfully!");
+//			alert("JSON data retrieved successfully!");
 			console.log(data);
 			$.each(data.rows, function(index, comic){
 	            $('' +
