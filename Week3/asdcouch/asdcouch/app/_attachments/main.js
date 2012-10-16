@@ -6,7 +6,7 @@ Term: 1210
 
 $('#home').on('pageinit', function(){
 	//code needed for home page goes here
-
+	
 });	
 		
 $('#addItem').on('pageinit', function(){
@@ -60,13 +60,14 @@ $('#addItem').on('pageinit', function(){
 	//Display JSON on Display Data page
 	var jsonCall = function(){
 		console.log("Starting JSON");
-		$("#jsonComicList").empty();
-		//AJAX call for JSON data
-		$.ajax({
-		url: "_view/comic",
-		type: "GET",
-		dataType: "json",
+//		AJAX call for JSON data
+//		$.ajax({
+//		url: "_view/comic",
+//		type: "GET",
+//		dataType: "json",
+		$.couch.db("asdproject").view("app/comic", {
 		success: function(data){
+			$("#jsonComicList").empty();
 //			alert("JSON data retrieved successfully!");
 			console.log(data);
 			$.each(data.rows, function(index, comic){
