@@ -111,7 +111,6 @@ $('#addItem').on('pageinit', function(){
 		$.couch.db("asdproject").saveDoc(item, {
 			success: function(data) {
 				//Console logs the id in the correct format
-				//Doesn't change it in CouchDB
 				data.id = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
 //				console.log(data);
 			},
@@ -131,30 +130,6 @@ $('#addItem').on('pageinit', function(){
 
 //Display Data page functions
 $('#dataDisplay').on('pageinit', function(){
-//	var makeItemLinks = function(item, linksLi){
-//		//add edit single item link
-//		var editLink = $('<a href="#addItem"id="editItem">Edit Chore</a>');
-//		editLink.id = item["_id"];
-//		editLink.on('click', editItem).appendTo($("#linksLi"));
-//
-//		//add line break for links
-//		var breakTag = $('<br>');
-//		breakTag.appendTo($("#linksLi"));
-//
-//		//add delete single item link
-//		var deleteLink = $('<a>');
-//		deleteLink.attr("id", "deleteA");
-//		deleteLink.href = "#";
-//		deleteLink.key = key;
-//		var deleteText = "Delete Comic";
-//		deleteLink.on("click", deleteItem)
-//				  .html(deleteText)
-//				  .appendTo($("#linksLi"));
-//
-//		//Creates a horizontal line/separator after each item
-//		var hr = $('<hr>');
-//		hr.appendTo($("#linksLi"));
-//	};
 	
 	var	editItem = function (){
 		//Grab the data from our item in Local Storage
@@ -195,6 +170,7 @@ $('#dataDisplay').on('pageinit', function(){
 		if(ask){
 			$.couch.db("asdproject").removeDoc(item, {
 				success: function(data){
+					data.id = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
 					console.log(data);
 				},
 				error: function(status){
@@ -208,11 +184,27 @@ $('#dataDisplay').on('pageinit', function(){
 		}	
 	};
 	
+	var urlVars = function() {
+		var urlData = $($.mobile.activePage).data("url");
+		var urlParts = urlData.split('?');
+		var urlPairs = urlParts[1].split('&');
+		var urlValues = {};
+		for (var pair in urlPairs) {
+			var keyVAlue = urlPairs[pair].spllit('=');
+			var key = decodeURIComponent(keyValue[0]);
+			var value = decodeURIComponent(keyValue[1]);
+			urlValues[key] = value;
+ 		}
+		return urlValues;
+	}
+	
 	//Display JSON on Display Data page
 		console.log("Starting JSON");
+//		var comic = urlVars()["id"];
 		$.couch.db("asdproject").view("app/comic", {
 		success: function(data){
 			$("#jsonComicList").empty();
+//			key: "id:" + comic;
 //			alert("JSON data retrieved successfully!");
 			console.log(data);
 			$.each(data.rows, function(index, comic){
@@ -226,7 +218,7 @@ $('#dataDisplay').on('pageinit', function(){
 	                    '<p> Genre: ' + comic.value.genre + '</p>'+
 	                    '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
 	                    '<p> Comments: ' + comic.value.comments + '</p>' +
-	                    '<p><a href="#" id="editItemLink">Edit Comic</a></p>'+
+	                    '<p><a href="#addItem" id="editItemLink">Edit Comic</a></p>'+
 	                    '<p><a href="#" id="deleteItemLink">Delete Comic</a></p></li>'
 	            ).appendTo('#jsonComicList'); 
 	            var editLink = $("#editItemLink");
