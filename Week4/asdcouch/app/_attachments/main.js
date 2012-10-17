@@ -131,30 +131,30 @@ $('#addItem').on('pageinit', function(){
 
 //Display Data page functions
 $('#dataDisplay').on('pageinit', function(){
-	var makeItemLinks = function(key, linksLi){
-		//add edit single item link
-		var editLink = $('<a href="#addItem"id="editLink">Edit Chore</a>');
-		editLink.key = key;
-		editLink.on('click', editItem).appendTo($("#linksLi"));
-
-		//add line break for links
-		var breakTag = $('<br>');
-		breakTag.appendTo($("#linksLi"));
-
-		//add delete single item link
-		var deleteLink = $('<a>');
-		deleteLink.attr("id", "deleteA")
-		deleteLink.href = "#";
-		deleteLink.key = key;
-		var deleteText = "Delete Comic";
-		deleteLink.on("click", deleteItem)
-				  .html(deleteText)
-				  .appendTo($("#linksLi"));
-
-		//Creates a horizontal line/separator after each item
-		var hr = $('<hr>');
-		hr.appendTo($("#linksLi"));
-	};
+//	var makeItemLinks = function(item, linksLi){
+//		//add edit single item link
+//		var editLink = $('<a href="#addItem"id="editItem">Edit Chore</a>');
+//		editLink.id = item["_id"];
+//		editLink.on('click', editItem).appendTo($("#linksLi"));
+//
+//		//add line break for links
+//		var breakTag = $('<br>');
+//		breakTag.appendTo($("#linksLi"));
+//
+//		//add delete single item link
+//		var deleteLink = $('<a>');
+//		deleteLink.attr("id", "deleteA");
+//		deleteLink.href = "#";
+//		deleteLink.key = key;
+//		var deleteText = "Delete Comic";
+//		deleteLink.on("click", deleteItem)
+//				  .html(deleteText)
+//				  .appendTo($("#linksLi"));
+//
+//		//Creates a horizontal line/separator after each item
+//		var hr = $('<hr>');
+//		hr.appendTo($("#linksLi"));
+//	};
 	
 	var	editItem = function (){
 		//Grab the data from our item in Local Storage
@@ -162,13 +162,13 @@ $('#dataDisplay').on('pageinit', function(){
 		var item = JSON.parse(value);
 
 		//populate the form fields with current Local Storage values
-		$('#comicTitle').val() 	= item.comicTitle[1];
-		$('#seriesTitle').val() 	= item.seriesTitle[1];
-		$('#issueNum').val() 	= item.issueNum[1];
-		$('#dateReleased').val() = item.dateReleased[1];
-		$('#publisher').val() 	= item.publisher[1];
-		$('#rateIssue').val() 	= item.rateIssue[1];
-		$('#genre').val() 		= item.genre[1];
+		$('#comicTitle').val() 	= comic.value.comicTitle;
+		$('#seriesTitle').val() 	= comic.value.seriesTitle;
+		$('#issueNum').val() 	= comic.value.issueNum;
+		$('#dateReleased').val() = comic.value.dateReleased;
+		$('#publisher').val() 	= comic.value.publisher;
+		$('#rateIssue').val() 	= comic.value.rateIssue;
+		$('#genre').val() 		= comic.value.genre;
 		var radios = $('#illStyle');
 		for(var i=0; i<radios.length; i++){		
 			if(radios[i].val() == "Full Color" && item.illStyle[1] == "Full Color"){
@@ -225,9 +225,16 @@ $('#dataDisplay').on('pageinit', function(){
 	                    '<p> Rate Issue: ' + comic.value.rateIssue + '</p>'+
 	                    '<p> Genre: ' + comic.value.genre + '</p>'+
 	                    '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
-	                    '<p> Comments: ' + comic.value.comments + '</p></li>'
+	                    '<p> Comments: ' + comic.value.comments + '</p>' +
+	                    '<p><a href="#" id="editItemLink">Edit Comic</a></p>'+
+	                    '<p><a href="#" id="deleteItemLink">Delete Comic</a></p></li>'
 	            ).appendTo('#jsonComicList'); 
-	            makeItemLinks();
+	            var editLink = $("#editItemLink");
+//				editItem.id = item["_id"];
+				editLink.on('click', editItem);
+				var deleteLink = $("#deleteItemLink");
+//				deleteItem.id = item["_id"];
+				deleteLink.on('click', deleteItem);
 	        });
 			$("#jsonComicList").listview('refresh');
 		},
@@ -248,9 +255,8 @@ $('#superhero').on('pageinit', function(){
 //		alert("JSON data retrieved successfully!");
 		console.log(data);
 		$.each(data.rows, function(index, comic){
-			var item = (comic.value || comic.doc);
             $('' +
-            		'<li><p> Title of Comic: ' + item.comicTitle + '</p>'+
+            		'<li><p> Title of Comic: ' + comic.value.comicTitle + '</p>'+
                     '<p> Title of Series: ' + comic.value.seriesTitle + '</p>'+
                     '<p> Issue Number: ' + comic.value.issueNum + '</p>'+
                     '<p> Date Released: ' + comic.value.dateReleased + '</p>'+
