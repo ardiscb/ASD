@@ -1,6 +1,6 @@
 /*
 Author: Courtney Ardis 
-Project: ASD Project 3
+Project: ASD Project 4
 Term: 1210
 */
 
@@ -10,16 +10,18 @@ $('#home').on('pageinit', function(){
 });	
 		
 $('#addItem').on('pageinit', function(){
-		delete $.validator.methods.date;
+	delete $.validator.methods.date;
+	var validate = function(){
 		var myForm = $('#comicForm');
 		    myForm.validate({
 			invalidHandler: function(form, validator) {
 			},
 			submitHandler: function() {
-		var data = myForm.serializeArray();
-			storeData(this.key);
-		}
-	});
+				var data = myForm.serializeArray();
+					storeData(this.key);
+				}
+		    });
+	};
 	
 	//any other code needed for addItem page goes here
 
@@ -28,6 +30,12 @@ $('#addItem').on('pageinit', function(){
 		styleValue,
 		errMsg = $('#errors');
 
+	//Change Page function
+	 var changePage = function(pageID){
+         $('#' + pageID).trigger('pageinit');
+         $.mobile.changePage($('#' + pageID),{transition:'slide'});
+	 }
+	 
 	//Find value of the selected radio button for the storeData function
 	var getSelectedRadio = function(){
 		var radios = $('#illStyle');
@@ -60,15 +68,10 @@ $('#addItem').on('pageinit', function(){
 	//Display JSON on Display Data page
 	var jsonCall = function(){
 		console.log("Starting JSON");
-//		AJAX call for JSON data
-//		$.ajax({
-//		url: "_view/comic",
-//		type: "GET",
-//		dataType: "json",
 		$.couch.db("asdproject").view("app/comic", {
 		success: function(data){
 			$("#jsonComicList").empty();
-//			alert("JSON data retrieved successfully!");
+			alert("JSON data retrieved successfully!");
 			console.log(data);
 			$.each(data.rows, function(index, comic){
 	            $('' +
@@ -91,18 +94,7 @@ $('#addItem').on('pageinit', function(){
 		});//END JSON AJAX call
 	};
 
-	var storeData = function(key){
-		//If there is no key, this is a brand new item and we need to generate a key
-		if(!key){
-			var id    			= Math.floor(Math.random()*100000000001);	
-		}else{
-			//Set the id to the existing key that we are editing so that it will save over the data
-			//The key is the same key that's been passed along from the editSubmit event
-			//to the validate function, and then passed here, into the storeData function
-			id = key;
-		}
-		//Gather up all our form field values and store in an object
-		//Object properties contain an array with the form label and input value
+	var storeData = function(key){	
 		getSelectedRadio();
 		var item 				= {};
 			item.comicTitle		= ["Title of Comic:", $('#comicTitle').val()];
@@ -113,10 +105,21 @@ $('#addItem').on('pageinit', function(){
 			item.rateIssue		= ["Rate of Issue:", $('#rateIssue').val()];
 			item.genre 			= ["Genre:", $('#genre').val()];
 			item.illStyle		= ["Illustration Style:", styleValue];
-			item.comments		= ["Comments:", $('#comments').val()];
-		//Save data into Local Storage: Use Stringify to convert our object to a string
-		localStorage.setItem(id, JSON.stringify(item));
+			item.comments		= ["Comments:", $('#comments').val()];	
+			item["_id"] = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
+		$.couch.db("asdproject").saveDoc(item, {
+			success: function(data) {
+				//Console logs the id in the correct format
+				//Doesn't change it in CouchDB
+				data.id = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
+				console.log(data);
+			},
+			error: function(status) {
+				console.log(status);
+			}
+		});
 		alert("Comic saved to index!");
+		changePage("dataDisplay");
 	}; 
 
 	//Make Item Links
@@ -175,7 +178,6 @@ $('#addItem').on('pageinit', function(){
 		}
 		$('#comments').val() 	= item.comments[1];
 
-		//Remove the initial listener from the input 'save comic' button
 		//Change Submit button value to Edit button
 		$('#submit').val() = "Edit Comic";
 		var editSubmit = $('#submit');
@@ -213,7 +215,7 @@ $('#addItem').on('pageinit', function(){
 	var clearLink = $('#clearData');
 	clearLink.on("click", clearLocal);
 	var save = $('#submit');
-	save.on("click", storeData);
+	save.on("click", validate);
 
 });
 

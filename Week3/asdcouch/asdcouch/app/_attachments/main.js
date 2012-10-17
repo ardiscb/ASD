@@ -60,15 +60,10 @@ $('#addItem').on('pageinit', function(){
 	//Display JSON on Display Data page
 	var jsonCall = function(){
 		console.log("Starting JSON");
-//		AJAX call for JSON data
-//		$.ajax({
-//		url: "_view/comic",
-//		type: "GET",
-//		dataType: "json",
 		$.couch.db("asdproject").view("app/comic", {
 		success: function(data){
 			$("#jsonComicList").empty();
-//			alert("JSON data retrieved successfully!");
+			alert("JSON data retrieved successfully!");
 			console.log(data);
 			$.each(data.rows, function(index, comic){
 	            $('' +
@@ -91,31 +86,26 @@ $('#addItem').on('pageinit', function(){
 		});//END JSON AJAX call
 	};
 
-	var storeData = function(key){
-		//If there is no key, this is a brand new item and we need to generate a key
-		if(!key){
-			var id    			= Math.floor(Math.random()*100000000001);	
-		}else{
-			//Set the id to the existing key that we are editing so that it will save over the data
-			//The key is the same key that's been passed along from the editSubmit event
-			//to the validate function, and then passed here, into the storeData function
-			id = key;
+	var storeData = function(key){	
+	getSelectedRadio();
+	var item 				= {};
+		item.comicTitle		= ["Title of Comic:", $('#comicTitle').val()];
+		item.seriesTitle	= ["Title of Series:", $('#seriesTitle').val()];
+		item.issueNum		= ["Issue Number:", $('#issueNum').val()];
+		item.dateReleased	= ["Date Released:", $('#dateReleased').val()];
+		item.publisher		= ["Publisher:", $('#publisher').val()];
+		item.rateIssue		= ["Rate of Issue:", $('#rateIssue').val()];
+		item.genre 			= ["Genre:", $('#genre').val()];
+		item.illStyle		= ["Illustration Style:", styleValue];
+		item.comments		= ["Comments:", $('#comments').val()];	
+	$.couch.db("asdproject").saveDoc(item, {
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(status) {
+			console.log(status);
 		}
-		//Gather up all our form field values and store in an object
-		//Object properties contain an array with the form label and input value
-		getSelectedRadio();
-		var item 				= {};
-			item.comicTitle		= ["Title of Comic:", $('#comicTitle').val()];
-			item.seriesTitle	= ["Title of Series:", $('#seriesTitle').val()];
-			item.issueNum		= ["Issue Number:", $('#issueNum').val()];
-			item.dateReleased	= ["Date Released:", $('#dateReleased').val()];
-			item.publisher		= ["Publisher:", $('#publisher').val()];
-			item.rateIssue		= ["Rate of Issue:", $('#rateIssue').val()];
-			item.genre 			= ["Genre:", $('#genre').val()];
-			item.illStyle		= ["Illustration Style:", styleValue];
-			item.comments		= ["Comments:", $('#comments').val()];
-		//Save data into Local Storage: Use Stringify to convert our object to a string
-		localStorage.setItem(id, JSON.stringify(item));
+	});
 		alert("Comic saved to index!");
 	}; 
 
@@ -213,7 +203,7 @@ $('#addItem').on('pageinit', function(){
 	var clearLink = $('#clearData');
 	clearLink.on("click", clearLocal);
 	var save = $('#submit');
-	save.on("click", storeData);
+	save.on("click", validate);
 
 });
 
