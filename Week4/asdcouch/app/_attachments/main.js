@@ -6,9 +6,9 @@ Term: 1210
 
 $('#home').on('pageinit', function(){
 	//code needed for home page goes here
-	
+
 });	
-		
+
 $('#addItem').on('pageinit', function(){
 	delete $.validator.methods.date;
 	var validate = function(){
@@ -22,7 +22,7 @@ $('#addItem').on('pageinit', function(){
 				}
 		    });
 	};
-	
+
 	//any other code needed for addItem page goes here
 
  	//Variable defaults
@@ -35,7 +35,7 @@ $('#addItem').on('pageinit', function(){
          $('#' + pageID).trigger('pageinit');
          $.mobile.changePage($('#' + pageID),{transition:'slide'});
 	 }
-	 
+
 	//Find value of the selected radio button for the storeData function
 	var getSelectedRadio = function(){
 		var radios = $('#illStyle');
@@ -64,7 +64,7 @@ $('#addItem').on('pageinit', function(){
 		var setSrc = newImg.attr("src", "images/" + catName + ".png");
 		newImg.appendTo(imageLi);
 	};
-	
+
 	//Display JSON on Display Data page
 	var jsonCall = function(){
 		console.log("Starting JSON");
@@ -146,8 +146,8 @@ $(document).on("pageshow", "#detailsPage", function(){
  		}
 		return urlValues;
 	}
-	
-	var comic = urlVars()["details"];
+
+	var comic = urlVars()["comic"];
 	var idValue = data.id;
 	var revValue = data.rev;
 	//Open document by id
@@ -173,7 +173,7 @@ $(document).on("pageshow", "#detailsPage", function(){
 //					}
 //				});
 //			});
-			$('#detailContent').append(
+			$('#detailItems').append(
 				$('<p>').append(
 					$('' +
 						'<ul data-role="listview">' +
@@ -192,7 +192,7 @@ $(document).on("pageshow", "#detailsPage", function(){
 		            )
 		        )
 		    );
-			
+
 	        console.log(data);
 	    },
 	    error: function(status) {
@@ -204,12 +204,12 @@ $(document).on("pageshow", "#detailsPage", function(){
 
 //Display Data page functions
 $('#dataDisplay').on('pageinit', function(){
-	
+
 	//Variable defaults
 	 var //comicGenre = ["--Choose A Genre--", "Superhero", "Horror", "Sci-Fi", "Western", "Romance"],
 		styleValue,
 		errMsg = $('#errors');
-	 
+
 	var	editItem = function (){
 		//Grab the data from our item in Local Storage
 		var value = localStorage.getItem(this.key);
@@ -279,7 +279,7 @@ $('#dataDisplay').on('pageinit', function(){
 //			alert("Comic was NOT deleted!");
 //		}	
 //	};
-	
+
 	var urlVars = function() {
 		var urlData = $($.mobile.activePage).data("url");
 		var urlParts = urlData.split('?');
@@ -293,7 +293,7 @@ $('#dataDisplay').on('pageinit', function(){
  		}
 		return urlValues;
 	}
-	
+
 	//Display JSON on Display Data page
 		console.log("Starting JSON");
 //		var comic = urlVars()["detailsPage"];
@@ -321,7 +321,7 @@ $('#dataDisplay').on('pageinit', function(){
 		        ).appendTo('#jsonComicList'); 
 	        });
 			$("#jsonComicList").listview('refresh');
-			$("#detailContent").listview('refresh');
+			$("#detailItems").listview('refresh');
 		},
 		error: function(result){
 			console.log(result);
@@ -499,4 +499,3 @@ $('#construction').on('pageinit', function(){
 	//code needed for construction page goes here
 
 });
-
