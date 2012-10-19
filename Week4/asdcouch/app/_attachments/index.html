@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 Author: Courtney Ardis 
-Project: ASD Project 4
+Project: ASD Project 3
 Term: 1210
 -->
 
@@ -100,14 +100,12 @@ Term: 1210
 			<!-- Content -->
 			<div data-role="content" class="override">
 				<div data-role="collapsible" data-collapsed="false">
-					<ul id="horrorComics" data-role="listview">
-	        			
-	        		</ul>
+					<ul data-role="listview" id="horrorComics">
+					</ul>
 					<!-- <h3>Horror</h3>
 					<p>Comics characterized by their gruesomely scripted and illustrated tales of ghosts and ghouls, zombies and vampires, haunted houses and graveyards, sexual perversion and sadism, torture, cannibalism, lycanthropy, dementia and other outre horror<p>
 					<a href="#construction" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="a" data-mini="true">Browse Horror Comics</a> -->
 				</div>
-				
 			</div>
 			<!-- Footer -->
 			<div data-role="footer" data-position="fixed" data-id="home" data-theme="b">
@@ -137,9 +135,8 @@ Term: 1210
 			<!-- Content -->
 			<div data-role="content" class="override">
 				<div data-role="collapsible" data-collapsed="false">
-					<ul id="romanceComics" data-role="listview">
-		        			
-		        	</ul>
+					<ul data-role="listview" id="romanceComics">
+					</ul>
 					<!-- <h3>Romance</h3>
 					<p>Comics depicting romantic love and its attendant complications such as jealousy, marriage, divorce, betrayal, and heartache</p>
 					<a href="#construction" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="a" data-mini="true">Browse Romance Comics</a> -->
@@ -173,9 +170,8 @@ Term: 1210
 			<!-- Content -->
 			<div data-role="content" class="override">
 				<div data-role="collapsible" data-collapsed="false">
-					<ul id="scifiComics" data-role="listview">
-		        			
-		        	</ul>
+					<ul data-role="listview" id="scifiComics">
+					</ul>
 					<!-- <h3>Sci-Fi</h3>
 					<p>Comics that often mock or satirize standard science fiction conventions like alien invasion of Earth, interstellar travel, or futuristic technology</p>
 					<a href="#construction" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="a" data-mini="true">Browse Sci-Fi Comics</a> -->
@@ -209,9 +205,8 @@ Term: 1210
 			<!-- Content -->
 			<div data-role="content" class="override">
 				<div data-role="collapsible" data-collapsed="false">
-					<ul id="superheroComics" data-role="listview">
-		        			
-		        	</ul>
+					<ul data-role="listview" id="superheroComics">
+					</ul>
 					<!-- <h3>Superhero</h3>
 					<p>Comics with a type of stock character possessing "extraordinary or superhuman powers" and dedicated to protecting the public</p>
 					<a href="#construction" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="a" data-mini="true">Browse Superhero Comics</a> -->
@@ -239,15 +234,14 @@ Term: 1210
 		<!-- Header -->
 			<div data-role="header" data-position="fixed" align="center">
 				<img src="logo.png" alt="TorchLight logo" class="logo" />
-				<h1>Sci-Fi</h1>
+				<h1>Western</h1>
 			</div>
 
 			<!-- Content -->
 			<div data-role="content" class="override">
 				<div data-role="collapsible" data-collapsed="false">
-					<ul id="westernComics" data-role="listview">
-		        			
-		        	</ul>
+					<ul data-role="listview" id="westernComics">
+					</ul>
 					<!-- <h3>Western</h3>
 					<p>Comics set in the American Old West frontier (usually anywhere west of the Mississippi River) and typically set during the late nineteenth century</p>
 					<a href="#construction" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="a" data-mini="true">Browse Western Comics</a> -->
@@ -472,8 +466,8 @@ Term: 1210
 					<ul>
 						<!-- Local Storage Nav Elements -->
 						<li><a id="search" href="#home">Home</a></li>
- 						<li><a id="displayData" href="#dataDisplay">Display</a></li>
- 						<!-- <li><a id="clearData" href="#">Clear Data</a></li> -->
+						<li><a id="displayData" href="#dataDisplay">Display</a></li>
+						<!-- <li><a id="clearData" href="#">Clear Data</a></li> -->
 						<li><a id="about" href="#about">About</a></li>
 						<!-- <li><a id="addNew" href="#addItem">Add New Comic</a></li> -->
 					</ul>
@@ -499,6 +493,7 @@ Term: 1210
 		<div id="jsonContent">
 			<!--Dynamically created by JS-->
 			<ul data-role="listview" id="jsonComicList">
+
 			</ul>
 		</div>
 		<!-- Footer -->
@@ -509,7 +504,7 @@ Term: 1210
 				<ul>
 					<li><a id="search" href="#home">Home</a></li>
 					<li><a id="link" href="#addItem">Add Comic</a></li>
-				<!-- 	<li><a id="clearData" href="#">Clear Data</a></li> -->
+					<li><a id="clearData" href="#">Clear Data</a></li>
 					<li><a id="about" href="#about">About</a></li>
 				</ul>
 			</div>

@@ -74,16 +74,20 @@ $('#addItem').on('pageinit', function(){
 			alert("JSON data retrieved successfully!");
 			console.log(data);
 			$.each(data.rows, function(index, comic){
-	            $('' +
-	            		'<li><p> Title of Comic: ' + comic.value.comicTitle + '</p>'+
-	                    '<p> Title of Series: ' + comic.value.seriesTitle + '</p>'+
-	                    '<p> Issue Number: ' + comic.value.issueNum + '</p>'+
-	                    '<p> Date Released: ' + comic.value.dateReleased + '</p>'+
-	                    '<p> Publisher: ' + comic.value.publisher + '</p>'+
-	                    '<p> Rate Issue: ' + comic.value.rateIssue + '</p>'+
-	                    '<p> Genre: ' + comic.value.genre + '</p>'+
-	                    '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
-	                    '<p> Comments: ' + comic.value.comments + '</p></li>'
+//	            $('' +
+//        		'<li><p> Title of Comic: ' + comic.value.comicTitle + '</p>'+
+//                '<p> Title of Series: ' + comic.value.seriesTitle + '</p>'+
+//                '<p> Issue Number: ' + comic.value.issueNum + '</p>'+
+//                '<p> Date Released: ' + comic.value.dateReleased + '</p>'+
+//                '<p> Publisher: ' + comic.value.publisher + '</p>'+
+//                '<p> Rate Issue: ' + comic.value.rateIssue + '</p>'+
+//                '<p> Genre: ' + comic.value.genre + '</p>'+
+//                '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
+//                '<p> Comments: ' + comic.value.comments + '</p></li>'
+				$('<li>').append(
+					$('<a>')
+						.attr("href", "details.html?comic=" + id)
+						.text(comicSeries)
 	            ).appendTo('#jsonComicList');   
 	        });
 			$("#jsonComicList").listview('refresh');
@@ -128,9 +132,84 @@ $('#addItem').on('pageinit', function(){
 
 });
 
+$(document).on("pageshow", "#detailsPage", function(){
+	var urlVars = function() {
+		var urlData = $($.mobile.activePage).data("url");
+		var urlParts = urlData.split('?');
+		var urlPairs = urlParts[1].split('&');
+		var urlValues = {};
+		for (var pair in urlPairs) {
+			var keyValue = urlPairs[pair].split('=');
+			var key = decodeURIComponent(keyValue[0]);
+			var value = decodeURIComponent(keyValue[1]);
+			urlValues[key] = value;
+ 		}
+		return urlValues;
+	}
+	
+	var comic = urlVars()["details"];
+	var idValue = data.id;
+	var revValue = data.rev;
+	//Open document by id
+	$.couch.db("asdproject").openDoc(comic, {
+		success: function(data) {
+			var idValue = data.id;
+			var revValue = data.rev;
+			var deleteLink = $("#deleteItemLink");
+//			deleteLink.on('click', function(){
+//				//Remove document by id
+//				$.couch.db("asdproject").removeDoc(comic, {
+//					success: function(data){
+//						console.log(data);
+//						if(ask){
+//							alert("Comic was deleted!");
+//							window.location.reload();
+//						}else{
+//							alert("Comic was NOT deleted!");
+//						}	
+//					},
+//					error: function(status){
+//						console.log(status);
+//					}
+//				});
+//			});
+			$('#detailContent').append(
+				$('<p>').append(
+					$('' +
+						'<ul data-role="listview">' +
+			        		'<li>' +
+				        		'<p> Title of Comic: ' + data.comicTitle + '</p>'+
+				                '<p> Title of Series: ' + data.seriesTitle + '</p>'+
+				                '<p> Issue Number: ' + data.issueNum + '</p>'+
+				                '<p> Date Released: ' + data.dateReleased + '</p>'+
+				                '<p> Publisher: ' + data.publisher + '</p>'+
+				                '<p> Rate Issue: ' + data.rateIssue + '</p>'+
+				                '<p> Genre: ' + data.genre + '</p>'+
+				                '<p> Illustration Style: ' + data.illStyle + '</p>'+
+				                '<p> Comments: ' + data.comments + '</p>' +
+				             '</li>' +
+			             '</ul>'
+		            )
+		        )
+		    );
+			
+	        console.log(data);
+	    },
+	    error: function(status) {
+	        console.log(status);
+	    }
+	});
+	console.log(comic);
+});
+
 //Display Data page functions
 $('#dataDisplay').on('pageinit', function(){
 	
+	//Variable defaults
+	 var //comicGenre = ["--Choose A Genre--", "Superhero", "Horror", "Sci-Fi", "Western", "Romance"],
+		styleValue,
+		errMsg = $('#errors');
+	 
 	var	editItem = function (){
 		//Grab the data from our item in Local Storage
 		var value = localStorage.getItem(this.key);
@@ -165,24 +244,41 @@ $('#dataDisplay').on('pageinit', function(){
 	 			  .key(this.key);
 	};
 
-	var	deleteItem = function (item){
-		var ask = confirm("Are you sure you want to delete this comic?");
-		if(ask){
-			$.couch.db("asdproject").removeDoc(item, {
-				success: function(data){
-					data.id = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
-					console.log(data);
-				},
-				error: function(status){
-					console.log(status);
-				}
-			});
-			alert("Comic was deleted!");
-			window.location.reload();
-		}else{
-			alert("Comic was NOT deleted!");
-		}	
-	};
+//	var	deleteItem = function (idValue, revValue){
+//		var ask = confirm("Are you sure you want to delete this comic?");
+//		if(ask){
+//			var comic = {
+//					_id: idValue,
+//					_rev: revValue
+//			}
+//			var comic = urlVars()["id"];
+			//Open document by id
+//			$.couch.db("asdproject").openDoc(comic, {
+//				success: function(data) 
+////					key: "id:" + comic;
+//			        console.log(data);
+//			    },
+//			    error: function(status) {
+//			        console.log(status);
+//			    }
+//			});
+			//Remove document by id
+//			$.couch.db("asdproject").removeDoc(comic, {
+//				success: function(data){
+////					key: "id:" + comic;
+////					data.id = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
+//					console.log(data);
+//				},
+//				error: function(status){
+//					console.log(status);
+//				}
+//			});
+//			alert("Comic was deleted!");
+//			window.location.reload();
+//		}else{
+//			alert("Comic was NOT deleted!");
+//		}	
+//	};
 	
 	var urlVars = function() {
 		var urlData = $($.mobile.activePage).data("url");
@@ -190,7 +286,7 @@ $('#dataDisplay').on('pageinit', function(){
 		var urlPairs = urlParts[1].split('&');
 		var urlValues = {};
 		for (var pair in urlPairs) {
-			var keyVAlue = urlPairs[pair].spllit('=');
+			var keyValue = urlPairs[pair].split('=');
 			var key = decodeURIComponent(keyValue[0]);
 			var value = decodeURIComponent(keyValue[1]);
 			urlValues[key] = value;
@@ -200,40 +296,43 @@ $('#dataDisplay').on('pageinit', function(){
 	
 	//Display JSON on Display Data page
 		console.log("Starting JSON");
-//		var comic = urlVars()["id"];
+//		var comic = urlVars()["detailsPage"];
 		$.couch.db("asdproject").view("app/comic", {
 		success: function(data){
 			$("#jsonComicList").empty();
-//			key: "id:" + comic;
-//			alert("JSON data retrieved successfully!");
-			console.log(data);
 			$.each(data.rows, function(index, comic){
-	            $('' +
-	            		'<li><p> Title of Comic: ' + comic.value.comicTitle + '</p>'+
-	                    '<p> Title of Series: ' + comic.value.seriesTitle + '</p>'+
-	                    '<p> Issue Number: ' + comic.value.issueNum + '</p>'+
-	                    '<p> Date Released: ' + comic.value.dateReleased + '</p>'+
-	                    '<p> Publisher: ' + comic.value.publisher + '</p>'+
-	                    '<p> Rate Issue: ' + comic.value.rateIssue + '</p>'+
-	                    '<p> Genre: ' + comic.value.genre + '</p>'+
-	                    '<p> Illustration Style: ' + comic.value.illStyle + '</p>'+
-	                    '<p> Comments: ' + comic.value.comments + '</p>' +
-	                    '<p><a href="#addItem" id="editItemLink">Edit Comic</a></p>'+
-	                    '<p><a href="#" id="deleteItemLink">Delete Comic</a></p></li>'
-	            ).appendTo('#jsonComicList'); 
-	            var editLink = $("#editItemLink");
-//				editItem.id = item["_id"];
-				editLink.on('click', editItem);
-				var deleteLink = $("#deleteItemLink");
-//				deleteItem.id = item["_id"];
-				deleteLink.on('click', deleteItem);
+			var id			= comic.id,
+			comicTitle		= comic.value.comicTitle,
+			seriesTitle		= comic.value.seriesTitle,
+			issueNum		= comic.value.issueNum,
+			dateReleased	= comic.value.dateReleased,
+			publisher		= comic.value.publisher,
+			rateIssue		= comic.value.rateIssue,
+			genre 			= comic.value.genre,
+			illStyle		= styleValue,
+			comments		= comic.value.comments;
+			//Changes id to the correct format in CouchDB
+//			["_id"] = "comic:" + $('#seriesTitle').val() + ":" + $('#genre').val();
+			console.log(data);
+				$('<li>').append(
+					$('<a>')
+						.attr("href", "details.html?comic=" + id)
+						.text(seriesTitle + " " + issueNum)
+		        ).appendTo('#jsonComicList'); 
 	        });
 			$("#jsonComicList").listview('refresh');
+			$("#detailContent").listview('refresh');
 		},
 		error: function(result){
 			console.log(result);
 		}
 		});//END
+		var editLink = $("#editItemLink");
+//		editItem.id = item["_id"];
+		editLink.on('click', editItem);
+//		var deleteLink = $("#deleteItemLink");
+////		deleteItem.id = item["_id"];
+//		deleteLink.on('click', deleteItem);
 }); //END Display Data Page
 
 $('#superhero').on('pageinit', function(){

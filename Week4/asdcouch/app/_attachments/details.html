@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Details</title>
+</head>
+<body>
+	<!-- Details page -->
+
+		<div data-role="page" id="detailsPage" data-theme="a">
+			<!-- Header -->
+			<div data-role="header" data-position="fixed">
+				<!-- When Browse pages work add data-rel="back" instead of href-->
+				<!-- <a href="index.html" data-icon="back">Back</a> -->
+				<img src="logo.png" alt="TorchLight logo" class="logo" />
+				<h4>Details</h4>
+			</div>
+
+			<!-- Content -->
+			<div data-role="content" id="detailContent">
+				<a href="#addItem" data-role="button" id="editItemLink">Edit Comic</a>
+                <a data-role="button" id="deleteItemLink">Delete Comic</a>
+			</div>
+			<!-- Footer -->
+			<div data-role="footer" data-position="fixed" data-id="home" data-theme="b">
+				<!-- Nav Bar -->
+				<div data-role="navbar">
+					<ul>
+						<li><a id="search" href="#home">Home</a></li>
+						<li><a id="link" href="#addItem">Add Comic</a></li>
+						<li><a id="about" href="#about">About</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	<!-- End Details page -->
+</body>
+</html>
